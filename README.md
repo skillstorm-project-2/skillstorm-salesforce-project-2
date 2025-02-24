@@ -19,6 +19,16 @@ The `sfdx-project.json` file contains useful configuration information for your 
 
 ## All About Unlocked Packages
 
+Using a scratch org linked to production org (sandboxes do not allow dev hubs)
+```shell
+sf org create scratch --alias <choose_name_for_ref> --set-default --target-dev-hub <dev_hub_name> --edition developer
+```
+
+Opening the scratch org:
+```shell
+sf org open --target-org <name_chosen_above_alias>
+```
+
 Creating an unlocked package:
 ```shell
 sf package create --name <package_name> --description <description> --package-type Unlocked --path force-app --no-namespace --target-dev-hub <dev_hub_name>

@@ -1,12 +1,19 @@
 {
   "packageDirectories": [
     {
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT",
       "path": "force-app",
-      "default": true
+      "default": true,
+      "package": "va_claims_team2_project2",
+      "versionDescription": "Contains apex code and Lightning Web Components for Team 2's VA Claims project"
     }
   ],
   "name": "salesforce-project-2",
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "62.0"
+  "sourceApiVersion": "62.0",
+  "packageAliases": {
+    "va_claims_team2_project2": "0Ho4U000000k9bmSAA"
+  }
 }

@@ -1,0 +1,13 @@
+<template>
+    <lightning-card title="Your Claims">
+        <div class="slds-p-horizontal_small">
+            <lightning-datatable
+                key-field="Id"
+                data={claims}
+                columns={tableColData}
+                hide-checkbox-column="true"
+            >
+            </lightning-datatable>
+        </div>
+    </lightning-card>
+</template>

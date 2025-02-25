@@ -1,0 +1,21 @@
+<template>
+    <div class="slds-card slds-p-around_large">
+        <h2> Submit A Claim</h2>
+        <lightning-record-edit-form 
+            object-api-name="Case"
+            onsubmit={handleSubmit}
+            onsuccess={handleSuccess}
+        >
+            <lightning-messages></lightning-messages>
+            <!-- change value field -->
+            <lightning-input-field field-name="AccountId" value="0014C000016ctr2QAA"></lightning-input-field> 
+            <lightning-input-field field-name="Claim_Type__c" f></lightning-input-field>
+            <lightning-input-field field-name="Description"></lightning-input-field>
+            <lightning-button
+                type="submit"
+                name="submit"
+                label="Submit Claim"
+            ></lightning-button>
+        </lightning-record-edit-form>
+    </div>
+</template>

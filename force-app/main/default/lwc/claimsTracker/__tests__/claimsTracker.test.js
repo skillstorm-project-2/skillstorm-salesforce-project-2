@@ -3,54 +3,8 @@ import ClaimsTracker from 'c/claimsTracker';
 import { getRecord } from 'lightning/uiRecordApi';
 import ClosedDate from '@salesforce/schema/Case.ClosedDate';
 
-const mockRecord = {
-    fields: {
-        Claim_Type__c: {
-            displayValue: "Test Text"
-        },
-        Claim_Status__c: {
-            displayValue: "Test Text"
-        },
-        Subject: {
-            value: "Test Text"
-        },
-        Description: {
-            value: "Test Text"
-        },
-        IsClosed: {
-            value: false
-        },
-        CreatedDate: {
-            displayValue: "Test Text",
-        }
-    }
-};
-
-const mockRecordClosed = {
-    fields: {
-        Claim_Type__c: {
-            displayValue: "Test Text"
-        },
-        Claim_Status__c: {
-            displayValue: "Test Text"
-        },
-        Subject: {
-            value: "Test Text"
-        },
-        Description: {
-            value: "Test Text"
-        },
-        IsClosed: {
-            value: true
-        },
-        CreatedDate: {
-            displayValue: "Test Text",
-        },
-        ClosedDate: {
-            displayValue: "Test Text",
-        }
-    }
-};
+const mockRecord = require('./data/data.json');
+const mockRecordClosed = require('./data/dataClosed.json');
 
 describe('c-claims-tracker', () => {
     afterEach(() => {

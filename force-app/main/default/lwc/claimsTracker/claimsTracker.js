@@ -25,7 +25,7 @@ const CLAIM_FIELDS = [
 
 export default class ClaimsTracker extends LightningElement {
 
-    @api claimId;
+    @api recordId;
     @api showHistory;
     
     claimObj;
@@ -33,7 +33,7 @@ export default class ClaimsTracker extends LightningElement {
     loading = true;
     fields = Object.values(CLAIM_FIELDS);
 
-    @wire(getRecord, { recordId: '$claimId', fields: CLAIM_FIELDS })
+    @wire(getRecord, { recordId: '$recordId', fields: CLAIM_FIELDS })
     wiredAccount(result) {
         if (result.data) {
             this.claimObj = result.data;

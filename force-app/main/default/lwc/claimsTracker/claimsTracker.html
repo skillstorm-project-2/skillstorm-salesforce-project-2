@@ -1,53 +1,63 @@
 <template>
-    <div class="slds-size_1-of-2">
+    <div>
         <lightning-card
             title="Claim Status"
         >
-            <template lwc:if={loading}>
-                <div class="slds-p-around_xx-large">
-                    <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
-                </div>
-            </template>
-            <template lwc:else>
-                <lightning-progress-indicator
-                    type="base"
-                    variant="base"
-                    current-step={claimObj.fields.Claim_Status__c.displayValue}
-                >
-                    <template for:each={claimSteps} for:item="step">
-                        <lightning-progress-step
-                            key={step.id}
-                            label={step.value}
-                            value={step.value}
-                        ></lightning-progress-step>
-                    </template>
-                </lightning-progress-indicator>
-                <div class="slds-p-horizontal_xx-large slds-p-vertical_medium">
-                    <h3 class="slds-text-heading_small slds-p-bottom_small">Claim Information</h3>
-                    <div>
-                        <template lwc:if={claimObj.fields.IsClosed.value}>
-                            <div class="slds-p-bottom_small">
-                                <div class="error-message slds-p-around_x-small" style="background-color: #d8e6fe;">
-                                    <lightning-icon icon-name="utility:info" alternative-text="Info" size="small"></lightning-icon>
-                                    <lightning-formatted-rich-text value={closedMessage} class="slds-p-left_small"></lightning-formatted-rich-text>
-                                </div>
-                            </div>
+            <template lwc:if={recordId}>
+                <template lwc:if={loading}>
+                    <div class="slds-p-around_xx-large">
+                        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                    </div>
+                </template>
+                <template lwc:else>
+                    <lightning-progress-indicator
+                        type="base"
+                        variant="base"
+                        current-step={claimObj.fields.Claim_Status__c.displayValue}
+                    >
+                        <template for:each={claimSteps} for:item="step">
+                            <lightning-progress-step
+                                key={step.id}
+                                label={step.value}
+                                value={step.value}
+                            ></lightning-progress-step>
                         </template>
-                        <p><strong>Created On: </strong> <span class="claim-type">{claimObj.fields.CreatedDate.displayValue}</span></p>
-                        <p><strong>Claim Type: </strong> <span class="claim-type">{claimObj.fields.Claim_Type__c.displayValue}</span></p>
-                        <p><strong>Claim Status: </strong> <span class="claim-status">{claimObj.fields.Claim_Status__c.displayValue}</span></p>
-                        <div class="slds-p-vertical_medium">
-                            <p><strong>Subject: </strong></p>
-                            <p>{claimObj.fields.Subject.value}</span></p>
-                            <br />
-                            <p><strong>Description: </strong></p>
-                            <p>{claimObj.fields.Description.value}</p>
+                    </lightning-progress-indicator>
+                    <div class="slds-p-horizontal_xx-large slds-p-vertical_medium">
+                        <h3 class="slds-text-heading_small slds-p-bottom_small">Claim Information</h3>
+                        <div>
+                            <template lwc:if={claimObj.fields.IsClosed.value}>
+                                <div class="slds-p-bottom_small">
+                                    <div class="error-message slds-p-around_x-small" style="background-color: #d8e6fe;">
+                                        <lightning-icon icon-name="utility:info" alternative-text="Info" size="small"></lightning-icon>
+                                        <lightning-formatted-rich-text value={closedMessage} class="slds-p-left_small"></lightning-formatted-rich-text>
+                                    </div>
+                                </div>
+                            </template>
+                            <p><strong>Created On: </strong> <span class="claim-type">{claimObj.fields.CreatedDate.displayValue}</span></p>
+                            <p><strong>Claim Type: </strong> <span class="claim-type">{claimObj.fields.Claim_Type__c.displayValue}</span></p>
+                            <p><strong>Claim Status: </strong> <span class="claim-status">{claimObj.fields.Claim_Status__c.displayValue}</span></p>
+                            <div class="slds-p-vertical_medium">
+                                <p><strong>Subject: </strong></p>
+                                <p>{claimObj.fields.Subject.value}</span></p>
+                                <br />
+                                <p><strong>Description: </strong></p>
+                                <p>{claimObj.fields.Description.value}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <template lwc:if={showHistory}>
-                    <p>History</p>
+                    <template lwc:if={showHistory}>
+                        <p>History</p>
+                    </template>
                 </template>
+            </template>
+            <template lwc:else>
+                <div class="slds-p-around_large">
+                    <div class="error-message">
+                        <lightning-icon icon-name="utility:error" alternative-text="Error" size="medium"></lightning-icon>
+                        <lightning-formatted-rich-text value="No Claim Selected" class="slds-p-left_small"></lightning-formatted-rich-text>
+                    </div>
+                </div>
             </template>
         </lightning-card>
     </div>

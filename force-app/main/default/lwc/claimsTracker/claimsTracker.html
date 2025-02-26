@@ -1,0 +1,45 @@
+<template>
+    <div class="slds-size_1-of-2">
+        <lightning-card
+            title="Claim Status"
+        >
+            <template lwc:if={loading}>
+                <div class="slds-p-around_xx-large">
+                    <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                </div>
+            </template>
+            <template lwc:else>
+                <lightning-progress-indicator
+                    type="base"
+                    variant="base"
+                    current-step={claimObj.fields.Claim_Status__c.displayValue}
+                >
+                    <template for:each={claimSteps} for:item="step">
+                        <lightning-progress-step
+                            key={step.id}
+                            label={step.value}
+                            value={step.value}
+                        ></lightning-progress-step>
+                    </template>
+                </lightning-progress-indicator>
+                <div class="slds-p-horizontal_xx-large slds-p-vertical_medium">
+                    <h3 class="slds-text-heading_medium slds-p-bottom_small">Claim Information</h3>
+                    <div>
+                        <p><strong>Claim Type: </strong> {claimObj.fields.Claim_Type__c.displayValue}</p>
+                        <p><strong>Claim Status: </strong> {claimObj.fields.Claim_Status__c.displayValue}</p>
+                        <div class="slds-p-vertical_medium">
+                            <p><strong>Subject: </strong></p>
+                            <p>{claimObj.fields.Subject.value}</p>
+                            <br />
+                            <p><strong>Description: </strong></p>
+                            <p>{claimObj.fields.Description.value}</p>
+                        </div>
+                    </div>
+                </div>
+                <template lwc:if={showHistory}>
+                    <p>History</p>
+                </template>
+            </template>
+        </lightning-card>
+    </div>
+</template>

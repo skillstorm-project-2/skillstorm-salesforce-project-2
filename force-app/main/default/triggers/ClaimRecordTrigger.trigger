@@ -1,6 +1,6 @@
-trigger ClaimRecordTrigger on Case (before insert, before update) {
+trigger ClaimRecordTrigger on Case (before insert) {
 
-    if (Trigger.isBefore && (Trigger.isInsert || Trigger.isUpdate)) {
-        QueueableObjectHandler.handleQueueableRecord(Trigger.new);
+    if (Trigger.isBefore && Trigger.isInsert) {
+        QueueableObjectHandler.handleQueueableRecord(Trigger.new, Trigger.oldMap, new ClaimQueueProcessor());
     }
 }

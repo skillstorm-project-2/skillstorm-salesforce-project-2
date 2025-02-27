@@ -1,0 +1,64 @@
+<apex:page controller="VfAppealController" renderAs="pdf" lightningStylesheets="true">
+    
+    <header>Claims Information</header>
+        <apex:pageBlock>
+           <apex:outputPanel rendered="!NOT(ISNULL({!accountRecords}) && {!accountRecords.size > 0}">
+            <apex:pageBlockTable value="{!accountRecords}" var="a">
+                <apex:column value="{!a.Name}" />
+                <apex:column value="{!a.Military_Branch__c}" />
+                <apex:column value="{!a.Service_Date_Start__c}" />
+                <apex:column value="{!a.Service_Date_End__c}" />
+                <apex:column value="{!a.Discharge_Status__c}" />
+                <apex:column value="{!a.Phone}" />
+                <!--
+                <table>
+ 
+
+                    <tr><td class="head">patient name</td><td class="head">reference text</td><td class="head">...</td><td class="head">...</td></tr>
+                     
+                    
+                    <tr><td>{!accountRecords.Name}</td></tr>
+                     
+                    
+                    </table>
+                     
+                    
+                    <table>
+                     
+                    
+                    <tr><td class="head border-full">description</td><td class="head  border-full">amount</td></tr>
+                     
+                    
+                    <tr><td class="border-side">assessment</td><td class="border-side">{!accountRecords.Military_Branch__c}</td></tr>
+                    
+                    </table> -->
+            </apex:pageBlockTable> 
+        </apex:outputPanel>
+    </apex:pageBlock> 
+    <apex:outputPanel rendered"{ISNULL(u)}></apex:outputPanel>
+    <!--
+    <header>Claims Information</header>
+    <apex:pageBlock>
+        <apex:pageBlockTable value="{!caseRecords}" var="crec">
+            <apex:column value="{!crec.Subject}" />
+            <apex:column value="{!crec.Claim_Type__c}" />
+            <apex:column value="{!crec.Decision_status__c}" />
+            <apex:column value="{!crec.Description}" />
+            <apex:column value="{!crec.CreatedDate}" />
+            <apex:column value="{!crec.ClosedDate}" />
+            <apex:column value="{!crec.Claim_Status__c}" />
+        </apex:pageBlockTable>
+    </apex:pageBlock> 
+
+    <header>Claims Information</header>
+    <apex:pageBlock>
+        <apex:pageBlockTable value="{!appealRecords}" var="arec">
+            <apex:column value="{!arec.Name}" />
+            <apex:column value="{!arec.Claim__c}" />
+            <apex:column value="{!arec.Appeal_Description__c}" />
+            <apex:column value="{!arec.Decision_Status__c}" />
+            <apex:column value="{!arec.Status__c}" />
+        </apex:pageBlockTable>
+    </apex:pageBlock> -->
+
+</apex:page>

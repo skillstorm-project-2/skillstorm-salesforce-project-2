@@ -1,0 +1,57 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes">
+  <!-- Existing Attributes -->
+  <aura:attribute name="currentStep" type="String" default="1" />
+  <aura:attribute name="userId" type="String" />
+
+  <!-- Modal Notification Attributes -->
+  <aura:attribute name="modalTitle" type="String" default="" />
+  <aura:attribute name="modalMessage" type="String" default="" />
+  <aura:attribute name="modalVariant" type="String" default="info" />
+  <aura:attribute name="showModal" type="Boolean" default="false" />
+
+  <div class="slds-grid slds-wrap full-width">
+    <div class="slds-col slds-size_1-of-1">
+      <lightning:progressIndicator
+        currentStep="{!v.currentStep}"
+        type="base"
+        variant="base"
+      >
+        <lightning:progressStep label="User Information" value="1" />
+        <lightning:progressStep label="Account Information" value="2" />
+        <lightning:progressStep label="Complete Screen" value="3" />
+      </lightning:progressIndicator>
+
+      <div class="slds-p-around_medium">
+        <!-- Conditionally render User Form, Account Form, or Complete Screen based on currentStep -->
+        <aura:if isTrue="{!v.currentStep == '1'}">
+          <c:userForm
+            onusercreated="{!c.handleUserCreated}"
+            onshowtoast="{!c.handleShowToast}"
+          />
+          <aura:set attribute="else">
+            <aura:if isTrue="{!v.currentStep == '2'}">
+              <c:accountForm
+                userId="{!v.userId}"
+                oncomplete="{!c.handleComplete}"
+                onshowtoast="{!c.handleShowToast}"
+              />
+
+              <aura:set attribute="else">
+                <c:completeScreen />
+              </aura:set>
+            </aura:if>
+          </aura:set>
+        </aura:if>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include the LWC modal component -->
+  <c:modalNotification
+    title="{!v.modalTitle}"
+    message="{!v.modalMessage}"
+    variant="{!v.modalVariant}"
+    isOpen="{!v.showModal}"
+    onclose="{!c.handleModalClose}"
+  />
+</aura:component>

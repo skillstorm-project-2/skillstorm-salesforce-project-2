@@ -34,11 +34,10 @@ public with sharing class UserCreationController {
       newUser.LanguageLocaleKey = (String) userMap.get('LanguageLocaleKey');
       newUser.IsActive = (Boolean) userMap.get('IsActive');
 
-      // You might want to set a default password - depends on your org settings
-      String tempPassword = 'TempPassword123!';
-
       // Insert the user
       insert newUser;
+
+      System.resetPassword(newUser.Id, true);
 
       // Return the user Id
       return newUser.Id;
@@ -59,7 +58,6 @@ public with sharing class UserCreationController {
       Account personAccount = new Account();
 
       // Set the IsPersonAccount field - note this is required for Person Accounts
-      // This might vary based on your org configuration
       personAccount.RecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
         .get('PersonAccount')
         .getRecordTypeId();
@@ -68,7 +66,7 @@ public with sharing class UserCreationController {
         'Military_Branch__c',
         'Discharge_Status__c',
         'Phone'
-        // 'SSN__c'
+        //, 'SSN__c'
         // field only currently available in prod. Will be added back later.
       };
 
@@ -94,6 +92,8 @@ public with sharing class UserCreationController {
       personAccount.put('FirstName', user.FirstName);
       personAccount.put('LastName', user.LastName);
       personAccount.put('PersonEmail', user.Email);
+
+      // Sets the Owner to be the user. Because we have to use internal licenses, we are setting it up to have each user have one account that they own that represents them.
       personAccount.put('OwnerId', userId);
 
       insert personAccount;

@@ -1,6 +1,4 @@
-// userForm.js
-import { LightningElement, track, api } from "lwc";
-import { ShowToastEvent } from "lightning/platformShowToastEvent";
+import { LightningElement, track } from "lwc";
 import createUser from "@salesforce/apex/UserCreationController.createUser";
 
 export default class UserForm extends LightningElement {
@@ -38,16 +36,13 @@ export default class UserForm extends LightningElement {
     const value = event.target.value;
     this.userRecord = { ...this.userRecord, [field]: value };
 
-    // Auto-populate Username if Email is entered and Username is empty
-    if (field === "Email" && !this.userRecord.Username) {
+    // Auto-populate Username if Email is entered
+    if (field === "Email") {
       this.userRecord.Username = value;
     }
 
-    // Auto-populate Alias if First and Last name are entered and Alias is empty
-    if (
-      (field === "FirstName" || field === "LastName") &&
-      !this.userRecord.Alias
-    ) {
+    // Auto-populate Alias if First and Last name are entered
+    if (field === "FirstName" || field === "LastName") {
       const firstInitial = this.userRecord.FirstName
         ? this.userRecord.FirstName.charAt(0)
         : "";
@@ -57,11 +52,11 @@ export default class UserForm extends LightningElement {
       this.userRecord.Alias = (firstInitial + lastPart).toLowerCase();
     }
 
-    // Auto-populate Nickname if Last name is entered and Nickname is empty
-    if (field === "LastName" && !this.userRecord.CommunityNickname) {
+    // Auto-populate Nickname if Last name is entered
+    if (field === "LastName") {
       this.userRecord.CommunityNickname =
-        this.userRecord.LastName +
-        (this.userRecord.FirstName ? this.userRecord.FirstName.charAt(0) : "");
+        (this.userRecord.FirstName ? this.userRecord.FirstName.charAt(0) : "") +
+        this.userRecord.LastName;
     }
   }
 
@@ -88,23 +83,27 @@ export default class UserForm extends LightningElement {
   }
 
   showToast(title, message, variant) {
-    console.log(title, message, variant);
-    this.dispatchEvent(
-      new ShowToastEvent({
+    // Create event with explicit detail structure
+    const customEvent = new CustomEvent("showtoast", {
+      bubbles: true,
+      composed: true,
+      detail: {
         title: title,
         message: message,
         variant: variant
-      })
-    );
+      }
+    });
+    this.dispatchEvent(customEvent);
   }
 
   handleError(error) {
-    let errorMessage = "Unknown error";
-    if (error.body && error.body.message) {
-      errorMessage = error.body.message;
-    } else if (typeof error === "string") {
-      errorMessage = error;
-    }
+    const errorMessage =
+      error.body && error.body.message
+        ? error.body.message
+        : typeof error === "string"
+          ? error
+          : "Unknown error";
+
     this.showToast("Error", errorMessage, "error");
   }
 }

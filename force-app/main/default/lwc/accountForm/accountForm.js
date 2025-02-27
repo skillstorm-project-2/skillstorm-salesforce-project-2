@@ -1,11 +1,10 @@
 // accountForm.js
 import { LightningElement, track, api } from "lwc";
-import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import createPersonAccount from "@salesforce/apex/UserCreationController.createPersonAccount";
 
 export default class AccountForm extends LightningElement {
   @api userId;
-
+  @track isLoading = false;
   @track accountRecord = {
     Military_Branch__c: "",
     Discharge_Status__c: "",
@@ -17,25 +16,28 @@ export default class AccountForm extends LightningElement {
     SSN__c: ""
   };
 
-  @track isLoading = false;
-
   get branchOptions() {
-    return [
-      { label: "Army", value: "Army" },
-      { label: "Navy", value: "Navy" },
-      { label: "Air Force", value: "Air Force" },
-      { label: "Marine Corps", value: "Marine Corps" },
-      { label: "Coast Guard", value: "Coast Guard" },
-      { label: "Space Force", value: "Space Force" }
+    const branches = [
+      "Army",
+      "Navy",
+      "Air Force",
+      "Marine Corps",
+      "Coast Guard",
+      "Space Force"
     ];
+    return branches.map((branch) => ({
+      label: branch,
+      value: branch
+    }));
   }
 
   get dischargeOptions() {
-    return [
-      { label: "Honorable Discharge", value: "Honorable Discharge" },
-      { label: "General Discharge", value: "General Discharge" },
-      { label: "Dishonorable Discharge", value: "Dishonorable Discharge" }
+    const dischargeOptions = [
+      "Honorable Discharge",
+      "Dishonorable Discharge",
+      "General Discharge"
     ];
+    return dischargeOptions.map((opt) => ({ label: opt, value: opt }));
   }
 
   handleInputChange(event) {
@@ -49,6 +51,7 @@ export default class AccountForm extends LightningElement {
     this.dispatchEvent(new CustomEvent("back"));
   }
 
+  // I am not 100% sure why this is necessary, but salesforce doesn't seem to be able to handle parsing these dates unless they are specifically mm/dd/yyyy
   formatDate(d = new Date()) {
     let month = String(d.getMonth() + 1);
     let day = String(d.getDate());
@@ -70,6 +73,7 @@ export default class AccountForm extends LightningElement {
       return;
     }
 
+    // parse dates in a format salesforce expects.
     this.accountRecord.parsedStartDate = this.formatDate(
       this.accountRecord.Service_Date_Start__c
     );
@@ -103,23 +107,28 @@ export default class AccountForm extends LightningElement {
   }
 
   showToast(title, message, variant) {
-    console.log(title, message, variant);
-    this.dispatchEvent(
-      new ShowToastEvent({
+    // Create event with explicit detail structure
+    const customEvent = new CustomEvent("showtoast", {
+      bubbles: true,
+      composed: true,
+      detail: {
         title: title,
         message: message,
         variant: variant
-      })
-    );
+      }
+    });
+
+    this.dispatchEvent(customEvent);
   }
 
   handleError(error) {
-    let errorMessage = "Unknown error";
-    if (error.body && error.body.message) {
-      errorMessage = error.body.message;
-    } else if (typeof error === "string") {
-      errorMessage = error;
-    }
+    const errorMessage =
+      error.body && error.body.message
+        ? error.body.message
+        : typeof error === "string"
+          ? error
+          : "Unknown error";
+
     this.showToast("Error", errorMessage, "error");
   }
 }

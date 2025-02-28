@@ -11,6 +11,7 @@
 
   <div class="slds-grid slds-wrap full-width">
     <div class="slds-col slds-size_1-of-1">
+      <!-- Progress Indicator -->
       <lightning:progressIndicator
         currentStep="{!v.currentStep}"
         type="base"
@@ -18,11 +19,10 @@
       >
         <lightning:progressStep label="User Information" value="1" />
         <lightning:progressStep label="Account Information" value="2" />
-        <lightning:progressStep label="Complete Screen" value="3" />
       </lightning:progressIndicator>
 
       <div class="slds-p-around_medium">
-        <!-- Conditionally render User Form, Account Form, or Complete Screen based on currentStep -->
+        <!-- Conditionally render User Form or Account Form based on currentStep -->
         <aura:if isTrue="{!v.currentStep == '1'}">
           <c:userForm
             onusercreated="{!c.handleUserCreated}"
@@ -32,6 +32,7 @@
             <aura:if isTrue="{!v.currentStep == '2'}">
               <c:accountForm
                 userId="{!v.userId}"
+                onback="{!c.handleBack}"
                 oncomplete="{!c.handleComplete}"
                 onshowtoast="{!c.handleShowToast}"
               />

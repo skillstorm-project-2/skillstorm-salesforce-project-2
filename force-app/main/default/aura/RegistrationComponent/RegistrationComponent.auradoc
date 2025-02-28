@@ -1,11 +1,6 @@
 <aura:documentation>
-  <aura:description>Documentation</aura:description>
-  <aura:example
-    name="RegistrationComponent"
-    ref="RegistrationComponent"
-    label="Label"
-  >
-    Aura component that displays lwc form elements. The controller navigates
-    between different components, conditionally rendering them.
-  </aura:example>
+	<aura:description>Documentation</aura:description>
+	<aura:example name="ExampleName" ref="exampleComponentName" label="Label">
+		Example Description
+	</aura:example>
 </aura:documentation>

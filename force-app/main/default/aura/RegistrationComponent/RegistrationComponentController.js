@@ -1,5 +1,5 @@
 ({
-  handleUserCreated: function (component, event) {
+  handleUserCreated: function (component, event, helper) {
     // Get userId from the event
     var userId = event.getParam("userId");
 
@@ -10,18 +10,22 @@
     component.set("v.currentStep", "2");
   },
 
-  handleComplete: function (component) {
+  handleBack: function (component, event, helper) {
+    // Go back to user form
+    component.set("v.currentStep", "1");
+  },
+
+  handleComplete: function (component, event, helper) {
     component.set("v.currentStep", "3");
   },
 
   // Use the LWC modal instead of toast
-  handleShowToast: function (component, event) {
+  handleShowToast: function (component, event, helper) {
     var title = event.getParam("title");
     var variant = event.getParam("variant");
     var message = event.getParam("message");
 
     if (title === "Error" || variant === "error") {
-      console.error(message);
       message =
         "An error has occurred, please contact your salesforce administrator.";
     }
@@ -45,7 +49,7 @@
   },
 
   // Handle the modal's close event
-  handleModalClose: function (component) {
+  handleModalClose: function (component, event, helper) {
     component.set("v.showModal", false);
   }
 });

@@ -2,7 +2,9 @@
     <div class="slds-grid slds-gutters slds-grid_align-stretch">
         <!-- Claims Table -->
         <div class="slds-col slds-size_8-of-12">
-            <c-claims-table></c-claims-table>
+            <template lwc:if={claims.length}>
+                <c-claims-table claims={claims}></c-claims-table>
+            </template>
         </div>
 
         <!-- Submit Claim Form -->

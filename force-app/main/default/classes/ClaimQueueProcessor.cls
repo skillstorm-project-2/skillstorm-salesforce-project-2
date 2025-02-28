@@ -1,35 +1,10 @@
-public with sharing class ClaimQueueProcessor implements QueueableObjectProcessor{
-
-    Map<String, Group> branchQueues = new Map<String, Group>();
-    List<String> branches = new List<String>{
-        'Air Force',
-        'Army',
-        'Coast Guard',
-        'Marine Corps',
-        'Navy',
-        'Space Force'
-    };
+public with sharing class ClaimQueueProcessor extends AbstractQueueProcessor{
 
     public ClaimQueueProcessor() {
-        List<Group> queues = [SELECT Id, Name FROM Group WHERE Type = 'Queue' AND Name LIKE '%_Claims_Queue'];
-
-        for (String branch : branches) {
-            for (Group queue : queues) {
-                if (queue.Name.contains(branch)) {
-                    branchQueues.put(branch, queue);
-                }
-            }
-        }
-    }
-
-    /**
-     * For testing purposes
-     */
-    public Map<String,Group> getBranchQueues() {
-        return branchQueues;
+        super('%_Claims_Queue');
     }
     
-    public void process(List<Object> objects, Map<Id, SObject> oldMap) {
+    public override void process(List<Object> objects, Map<Id, SObject> oldMap) {
 
         Set<Id> claimAccountIds = new Set<Id>();
         Map<Id, String> accountMilitaryBranches = new Map<Id, String>();

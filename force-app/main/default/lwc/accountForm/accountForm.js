@@ -1,11 +1,10 @@
 // accountForm.js
 import { LightningElement, track, api } from "lwc";
-import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import createPersonAccount from "@salesforce/apex/UserCreationController.createPersonAccount";
 
 export default class AccountForm extends LightningElement {
   @api userId;
-
+  @track isLoading = false;
   @track accountRecord = {
     Military_Branch__c: "",
     Discharge_Status__c: "",
@@ -16,8 +15,6 @@ export default class AccountForm extends LightningElement {
     Phone: "",
     SSN__c: ""
   };
-
-  @track isLoading = false;
 
   get branchOptions() {
     const branches = [
@@ -54,6 +51,7 @@ export default class AccountForm extends LightningElement {
     this.dispatchEvent(new CustomEvent("back"));
   }
 
+  // I am not 100% sure why this is necessary, but salesforce doesn't seem to be able to handle parsing these dates unless they are specifically mm/dd/yyyy
   formatDate(d = new Date()) {
     let month = String(d.getMonth() + 1);
     let day = String(d.getDate());
@@ -75,6 +73,7 @@ export default class AccountForm extends LightningElement {
       return;
     }
 
+    // parse dates in a format salesforce expects.
     this.accountRecord.parsedStartDate = this.formatDate(
       this.accountRecord.Service_Date_Start__c
     );
@@ -108,8 +107,6 @@ export default class AccountForm extends LightningElement {
   }
 
   showToast(title, message, variant) {
-    console.log("Firing show toast with:", title, message, variant);
-
     // Create event with explicit detail structure
     const customEvent = new CustomEvent("showtoast", {
       bubbles: true,
@@ -121,17 +118,17 @@ export default class AccountForm extends LightningElement {
       }
     });
 
-    console.log("Event created:", customEvent);
     this.dispatchEvent(customEvent);
   }
 
   handleError(error) {
-    let errorMessage = "Unknown error";
-    if (error.body && error.body.message) {
-      errorMessage = error.body.message;
-    } else if (typeof error === "string") {
-      errorMessage = error;
-    }
+    const errorMessage =
+      error.body && error.body.message
+        ? error.body.message
+        : typeof error === "string"
+          ? error
+          : "Unknown error";
+
     this.showToast("Error", errorMessage, "error");
   }
 }

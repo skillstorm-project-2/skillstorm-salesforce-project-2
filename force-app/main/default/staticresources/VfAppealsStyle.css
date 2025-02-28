@@ -1,0 +1,67 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.report-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    background-color: #004085;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    border-radius: 2px;
+}
+
+h3 {
+    color: #333;
+    margin-top: 30px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 2px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    font-size: 16px;
+    text-align: left;
+    background-color: #ffffff;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 5px;
+    text-align: left;
+}
+
+table th {
+    background-color: #007bff;
+    color: white;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+table td {
+    text-align: left;
+}
+
+/* Equal column width for all tables */
+table th, table td {
+    width: 20%; /* Set each column to 20% to make them equal */
+}
+
+/* If the number of columns is more than 5, adjust the width to fit accordingly */
+table th:nth-child(n+6), table td:nth-child(n+6) {
+    width: 12%; /* This is to handle more than 5 columns, like the Appeals table */
+}

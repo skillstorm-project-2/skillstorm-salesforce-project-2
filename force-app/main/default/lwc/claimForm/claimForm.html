@@ -1,21 +1,92 @@
 <template>
-    <div class="slds-card slds-p-around_large">
-        <h2> Submit A Claim</h2>
-        <lightning-record-edit-form 
-            object-api-name="Case"
-            onsubmit={handleSubmit}
-            onsuccess={handleSuccess}
-        >
-            <lightning-messages></lightning-messages>
-            <!-- change value field -->
-            <lightning-input-field field-name="AccountId" value="0014C000016ctr2QAA"></lightning-input-field> 
-            <lightning-input-field field-name="Claim_Type__c" f></lightning-input-field>
-            <lightning-input-field field-name="Description"></lightning-input-field>
-            <lightning-button
-                type="submit"
-                name="submit"
-                label="Submit Claim"
-            ></lightning-button>
-        </lightning-record-edit-form>
+    <div class="slds-grid slds-grid_vertical-align-center slds-grid_align-center">
+        <div class="slds-col slds-medium-size_4-of-12">
+            <lightning-card>
+                <div class="slds-text-align_center slds-text-heading_medium slds-p-bottom_large">Claim Form</div>
+                <lightning-progress-indicator current-step={currentStep} type="base">
+                    <lightning-progress-step label="Step 1: Add Information" value="1"></lightning-progress-step>
+                    <lightning-progress-step label="Step 2: Upload Documents" value="2"></lightning-progress-step>
+                    <lightning-progress-step label="Step 3: Confirm" value="3"></lightning-progress-step>
+                </lightning-progress-indicator>
+                <!-- Wrapper -->
+                <div class="step-wrapper slds-p-around_medium"> 
+                    <!-- Step 1 -->
+                    <template lwc:if={isFirstStep}>
+                        <lightning-record-edit-form 
+                            object-api-name="Case"
+                            onsubmit={handleSubmit}
+                            onsuccess={handleSuccess}
+                            class="slds-form_stacked"
+                        >
+                            <lightning-messages></lightning-messages>
+    
+                            <div class="slds-m-bottom_medium">
+                                <div class="slds-form-element__label slds-var-m-left_xx-small"> Name </div>
+                                <lightning-input-field disabled="true" field-name={accountIdField} value={personAccountId} variant="label-hidden"></lightning-input-field>
+                            </div>
+                            <div class="slds-m-bottom_medium">
+                                <lightning-input-field field-name={claimTypeField}></lightning-input-field>
+                            </div>
+                            <div class="slds-m-bottom_medium">
+                                <lightning-input-field field-name={subjectField}></lightning-input-field>
+                            </div>
+                            <div class="slds-m-bottom_medium">
+                                <lightning-input-field field-name={descriptionField}></lightning-input-field>
+                            </div>
+                            <div class="slds-m-top_medium slds-text-align_center">
+                                <lightning-button 
+                                    type="submit"
+                                    name="submit"
+                                    label="Continue"
+                                    variant="brand"
+                                ></lightning-button>   
+                            </div>
+                        </lightning-record-edit-form>
+                    </template>
+
+                    <!-- Second Step -->
+                    <template lwc:elseif={isSecondStep}>
+                        <template lwc:if={isClaimCreated}>
+                            <div>
+                                <lightning-file-upload
+                                    label="Upload Required Documents"
+                                    name="fileUploader"
+                                    record-id={claimId}
+                                    onuploadfinished={handleUpload}
+                                    multiple
+                                ></lightning-file-upload>
+                                <div class="slds-m-top_medium slds-form-element__label slds-var-m-left_xx-small">
+                                    Attached Files: {attachedFileNames}
+                                </div>
+                            </div>  
+                            <div class="slds-m-top_medium slds-text-align_center">
+                                <lightning-button 
+                                label="Continue"
+                                onclick={handleNext}
+                                variant="brand"
+                                ></lightning-button>
+                            </div>
+                        </template>
+                    </template>
+
+                    <!-- Third step -->
+                    <template lwc:elseif={isThirdStep}>
+                        <div class="slds-p-around_medium slds-text-align_center">
+                            <h2 class="slds-text-heading_large slds-m-bottom_small">
+                                Thank you!
+                            </h2>
+                            <p>Your form has been submitted successfully.</p>
+                    
+                            <div class="slds-m-top_medium">
+                                <a href="/s/claims" class="slds-text-heading_small"> 
+                                    Go Back
+                                </a>
+                            </div>
+                        </div>
+                       
+                    </template>
+                </div>
+            </lightning-card>
+        </div>
     </div>
 </template>

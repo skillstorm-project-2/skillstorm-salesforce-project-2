@@ -1,12 +1,15 @@
 <template>
-    <lightning-card title="Claim Detail">
-        <lightning-record-form
-            record-id={recordId}
-            object-api-name="Case"
-            layout-type="Full"
-            mode="view"
-        > </lightning-record-form>
-
+    <lightning-card>
+        <lightning-accordion allow-multiple-sections-open="true">
+            <lightning-accordion-section label="Edit Claim Details">
+                <lightning-record-form
+                    record-id={recordId}
+                    object-api-name="Case"
+                    fields={fields}
+                    mode="view"
+                ></lightning-record-form>
+            </lightning-accordion-section>
+        </lightning-accordion>
     </lightning-card>
 </template>
 

@@ -1,0 +1,87 @@
+<apex:page controller="VfAppealController" renderAs="pdf" tabStyle="Account">
+    <apex:stylesheet value="{!URLFOR($Resource.VfAppealsStyle)}"/>
+
+    <div class="report-container">
+        <h2>Military Service Report</h2>
+    
+        <!-- Account Table -->
+        <h3>Service Member Info</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Military Branch</th>
+                    <th>Phone</th>
+                    <th>Disability Rating</th>
+                    <th>Discharge Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <apex:repeat value="{!accList}" var="acc">
+                    <tr>
+                        <td>{!acc.Name}</td>
+                        <td>{!acc.Military_Branch__c}</td>
+                        <td>{!acc.Phone}</td>
+                        <td>{!acc.Disability_Rating__c}</td>
+                        <td>{!acc.Discharge_Status__c}</td>
+                    </tr>
+                </apex:repeat>
+            </tbody>
+        </table>
+    
+        <!-- Case Table -->
+        <h3>Claims</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Claim Type</th>
+                    <th>Description</th>
+                    <th>Created Date</th>
+                    <th>Closed Date</th>
+                    <th>Claim Status</th>
+                    <th>Decision Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <apex:repeat value="{!caseList}" var="cas">
+                    <tr>
+                        <td>{!cas.Id}</td>
+                        <td>{!cas.Claim_Type__c}</td>
+                        <td>{!cas.Description}</td>
+                        <td>{!cas.CreatedDate}</td>
+                        <td>{!cas.ClosedDate}</td>
+                        <td>{!cas.Claim_Status__c}</td>
+                        <td>{!cas.Decision_status__c}</td>
+                    </tr>
+                </apex:repeat>
+            </tbody>
+        </table>
+    
+        <!-- Appeal Table -->
+        <h3>Appeals</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Claim</th>
+                    <th>Appeal Description</th>
+                    <th>Decision Status</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <apex:repeat value="{!appealList}" var="apl">
+                    <tr>
+                        <td>{!apl.Name}</td>
+                        <td>{!apl.Claim__c}</td>
+                        <td>{!apl.Appeal_Description__c}</td>
+                        <td>{!apl.Decision_Status__c}</td>
+                        <td>{!apl.Status__c}</td>
+                    </tr>
+                </apex:repeat>
+            </tbody>
+        </table>
+    </div>
+        
+</apex:page>

@@ -24,7 +24,7 @@
       <div class="slds-p-around_medium">
         <!-- Conditionally render User Form, Account Form, or Complete Screen based on currentStep -->
         <aura:if isTrue="{!v.currentStep == '1'}">
-          <c:userForm
+          <c:userCreateForm
             onusercreated="{!c.handleUserCreated}"
             onshowtoast="{!c.handleShowToast}"
           />

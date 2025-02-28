@@ -1,7 +1,7 @@
 import { LightningElement, track } from "lwc";
 import createUser from "@salesforce/apex/UserCreationController.createUser";
 
-export default class UserForm extends LightningElement {
+export default class UserCreateForm extends LightningElement {
   @track userRecord = {
     FirstName: "",
     LastName: "",

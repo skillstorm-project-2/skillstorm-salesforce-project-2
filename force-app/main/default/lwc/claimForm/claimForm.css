@@ -1,0 +1,8 @@
+.step-wrapper {
+    min-height: 376px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* align-items: center; */
+}

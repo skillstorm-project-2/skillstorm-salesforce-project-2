@@ -47,4 +47,13 @@ export default class ClaimsDashboard extends NavigationMixin(LightningElement) {
             }
         })
     }
+
+    handlePDF() {
+        this[NavigationMixin.Navigate]({
+            type: 'standard__webPage',
+            attributes: {
+                url: '/apex/VfAppeals' 
+            }
+        });
+    }
 }

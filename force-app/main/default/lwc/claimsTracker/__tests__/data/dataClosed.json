@@ -1,0 +1,25 @@
+{
+    "fields": {
+        "Claim_Type__c": {
+            "displayValue": "Test Text"
+        },
+        "Claim_Status__c": {
+            "displayValue": "Test Text"
+        },
+        "Subject": {
+            "value": "Test Text"
+        },
+        "Description": {
+            "value": "Test Text"
+        },
+        "IsClosed": {
+            "value": true
+        },
+        "CreatedDate": {
+            "displayValue": "Test Text"
+        },
+        "ClosedDate": {
+            "displayValue": "Test Text"
+        }
+    }
+}

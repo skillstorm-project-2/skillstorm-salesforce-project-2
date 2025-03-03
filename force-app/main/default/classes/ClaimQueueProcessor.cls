@@ -25,6 +25,14 @@ public with sharing class ClaimQueueProcessor extends AbstractQueueProcessor{
         for (Object obj : objects) {
             Case claim = (Case) obj;
 
+            if (claim.AccountId == null) {
+                System.debug('Claim AccountId is null');
+            }
+
+            if (accountMilitaryBranches.get(claim.AccountId) == null) {
+                System.debug('Military Branch is null');
+            }
+
             Group queue = branchQueues.get(accountMilitaryBranches.get(claim.AccountId));
 
             if (queue != null) {

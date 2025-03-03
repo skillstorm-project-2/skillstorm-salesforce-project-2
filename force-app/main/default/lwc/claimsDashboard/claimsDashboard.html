@@ -1,4 +1,29 @@
 <template>
+    <div>
+        <!-- action bar -->
+        <div class="slds-m-bottom_medium slds-grid slds-wrap">
+            <div>
+                <lightning-button
+                    label="Create Claim"
+                    variant="brand"
+                    onclick={handleCreateClaim}
+                ></lightning-button>
+            </div>
+            <div class="slds-m-left_x-large">
+                <lightning-button
+                    label="Create Appeal"
+                    variant="brand"
+                ></lightning-button>
+            </div>
+            <div class="slds-m-left_x-large">
+                <lightning-button
+                label="Export to PDF"
+                variant="brand"
+                onclick={handlePDF}
+                ></lightning-button>
+            </div>
+         </div>
+    </div>
     <div class="slds-grid slds-gutters slds-grid_align-stretch">
         <!-- Claims Table -->
         <div class="slds-col slds-size_8-of-12">
@@ -9,19 +34,6 @@
 
         <!-- Submit Claim Form -->
         <div class="slds-col slds-size_4-of-12">
-            <!-- action bar -->
-            <div class="slds-m-bottom_medium slds-p-horizontal_small">
-                <lightning-button
-                    label="Create Claim"
-                    variant="brand"
-                    onclick={handleCreateClaim}
-                > </lightning-button>
-                <lightning-button
-                    label="Create Appeal"
-                    variant="brand"
-                > </lightning-button>
-                
-             </div>
             <c-appeals-table></c-appeals-table>
         </div>
     </div>

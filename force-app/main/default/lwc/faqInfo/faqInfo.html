@@ -1,0 +1,39 @@
+<template>
+    
+    <lightning-card title="Frequently Asked Questions">
+        <div class="accordion-container">
+            <!--Outer Accordion-->
+            <lightning-accordion allow-multiple-sections-open active-section-name="1">
+                <template for:each={sections} for:item="section">
+                    <lightning-accordion-section key={section.id} name={section.id} label={section.label} class="accordion-section">
+                        
+                        <!-- Inner Accordion -->
+                        <div class="nested-accordion">
+                            <lightning-accordion allow-multiple-sections-open>
+                                <template for:each={section.subsections} for:item="sub">
+                                    <lightning-accordion-section key={sub.id} name={sub.id} label={sub.label} class="nested-section">
+                                        <!-- Conditional rendering for if its a list -->
+                                        <template if:true={sub.isList}>
+                                            <ol class="custom-list">
+                                                <template for:each={sub.items} for:item="item">
+                                                    <li key={item} class="list-item">{item}</li>
+                                                </template>
+                                            </ol>
+                                        </template>
+                                        <template if:false={sub.isList}>
+                                                <template for:each={sub.items} for:item="item">
+                                                    <p key={item} class="list-item">{item}</p>
+                                                </template>
+                                        </template>
+                                    </lightning-accordion-section>
+                                </template>
+                            </lightning-accordion>                          
+                        </div>
+
+                    </lightning-accordion-section>
+                </template>
+            </lightning-accordion>
+        </div>
+    </lightning-card>
+
+</template>

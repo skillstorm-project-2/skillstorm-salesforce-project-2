@@ -1,0 +1,42 @@
+.accordion-container {
+    padding: 10px;
+}
+
+.accordion-section {
+    border: 1px solid #d8dde6;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 5px;
+    background-color: #f9fafb;
+    transition: all 0.3s ease-in-out;
+}
+
+.accordion-section:hover {
+    background-color: #eef1f6;
+}
+
+.nested-accordion {
+    margin-left: 15px; /* Indent nested accordion */
+    padding: 5px;
+    border-left: 2px solid #0070d2;
+}
+
+.nested-section {
+    border: 1px solid #d0d4dc;
+    background: #ffffff;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    padding: 5px;
+}
+
+.custom-list {
+    margin: 10px 0 0 20px;
+    padding: 0;
+    list-style: decimal;
+}
+
+.list-item {
+    padding: 5px 0;
+    font-size: 14px;
+    color: #333;
+}

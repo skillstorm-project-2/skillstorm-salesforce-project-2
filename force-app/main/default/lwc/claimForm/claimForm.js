@@ -60,9 +60,9 @@ export default class ClaimForm extends LightningElement {
         event.preventDefault();
         const fields = event.detail.fields;
 
-        fields.claimStatusField = 'Under Review';
-        fields.statusField = 'New';
-        fields.originField = 'Web';
+        fields[this.claimStatusField.fieldApiName] = 'Received';
+        fields[this.statusField.fieldApiName] = 'New';
+        fields[this.originField.fieldApiName] = 'Web';
 
         this.template.querySelector('lightning-record-edit-form').submit(fields);
 
@@ -71,13 +71,6 @@ export default class ClaimForm extends LightningElement {
     // Handler for successful form submission
     handleSuccess(event) {
         this.claimId = event.detail.id;
-        this.dispatchEvent(
-            new ShowToastEvent({
-                title: 'Success',
-                message: event.detail.apiName + ' created.',
-                variant: 'success',
-            })
-        );
 
         // increment step
         this.incrementStep();

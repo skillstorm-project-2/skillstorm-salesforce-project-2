@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Request_for_Higher_Review__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Box is checked if the veteran has requested for a higher authority to review.</description>
+    <label>Request for Higher Review</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

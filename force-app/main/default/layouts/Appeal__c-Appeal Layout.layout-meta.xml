@@ -23,6 +23,10 @@
                 <behavior>Edit</behavior>
                 <field>Request_for_In_Person_Hearing__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Submit_New_Evidence__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

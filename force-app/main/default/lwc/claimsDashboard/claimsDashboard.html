@@ -30,6 +30,13 @@
             <template lwc:if={claims.length}>
                 <c-claims-table claims={claims}></c-claims-table>
             </template>
+            <template lwc:else>
+                <lightning-card title="No Claims Found">
+                    <div class="slds-p-horizontal_small">
+                        <p>No claims found for this account.</p>
+                    </div>
+                </lightning-card>
+            </template>
         </div>
 
         <!-- Submit Claim Form -->

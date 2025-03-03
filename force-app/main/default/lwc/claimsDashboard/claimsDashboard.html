@@ -28,7 +28,15 @@
         <!-- Claims Table -->
         <div class="slds-col slds-size_8-of-12">
             <template lwc:if={claims.length}>
-                <c-claims-table claims={claims}></c-claims-table>
+                <div>
+                    <c-claims-table-filter-buttons
+                        onfilterclaims={handleFilterClaims}
+                    ></c-claims-table-filter-buttons>
+                </div>
+                <c-claims-table 
+                    claims={claims}
+                    show-claim-type={showingClaimType}
+                ></c-claims-table>
             </template>
             <template lwc:else>
                 <lightning-card title="No Claims Found">

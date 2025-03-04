@@ -13,7 +13,7 @@ public without sharing class UserCreationController {
       Id veteranUserId = [
         SELECT Id
         FROM Profile
-        WHERE Name = 'Veteran'
+        WHERE Name = 'Vet'
         LIMIT 1
       ]
       .Id;
@@ -65,9 +65,7 @@ public without sharing class UserCreationController {
       List<String> keys = new List<String>{
         'Military_Branch__c',
         'Discharge_Status__c',
-        'Phone',
-        'SSN__pc'
-        // field only currently available in prod. Will be added back later.
+        'Phone'
       };
 
       for (String key : keys) {
@@ -79,6 +77,7 @@ public without sharing class UserCreationController {
 
       personAccount.put('Service_Date_Start__c', Date.parse(serviceDateString));
       personAccount.put('Service_Date_End__c', Date.parse(serviceEndString));
+      personAccount.put('SSN__pc', accountMap.get('SSN__pc'));
 
       // Get User information to set on the Person Account
       User user = [

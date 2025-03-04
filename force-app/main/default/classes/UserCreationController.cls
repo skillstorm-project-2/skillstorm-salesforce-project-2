@@ -1,4 +1,4 @@
-public with sharing class UserCreationController {
+public without sharing class UserCreationController {
   @AuraEnabled
   public static String createUser(String userJson) {
     try {
@@ -13,7 +13,7 @@ public with sharing class UserCreationController {
       Id veteranUserId = [
         SELECT Id
         FROM Profile
-        WHERE Name = 'Claims User'
+        WHERE Name = 'Vet'
         LIMIT 1
       ]
       .Id;
@@ -66,8 +66,6 @@ public with sharing class UserCreationController {
         'Military_Branch__c',
         'Discharge_Status__c',
         'Phone'
-        //, 'SSN__c'
-        // field only currently available in prod. Will be added back later.
       };
 
       for (String key : keys) {
@@ -79,6 +77,7 @@ public with sharing class UserCreationController {
 
       personAccount.put('Service_Date_Start__c', Date.parse(serviceDateString));
       personAccount.put('Service_Date_End__c', Date.parse(serviceEndString));
+      personAccount.put('SSN__pc', accountMap.get('SSN__pc'));
 
       // Get User information to set on the Person Account
       User user = [

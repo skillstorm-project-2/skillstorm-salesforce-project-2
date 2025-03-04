@@ -6,7 +6,7 @@ private class UserCreationControllerTest {
     Profile claimsUserProfile = [
       SELECT Id
       FROM Profile
-      WHERE Name = 'Claims User'
+      WHERE Name = 'Vet'
       LIMIT 1
     ];
   }
@@ -56,7 +56,7 @@ private class UserCreationControllerTest {
     Profile claimsUserProfile = [
       SELECT Id
       FROM Profile
-      WHERE Name = 'Claims User'
+      WHERE Name = 'Vet'
       LIMIT 1
     ];
     System.assertEquals(claimsUserProfile.Id, createdUser.ProfileId);
@@ -219,7 +219,7 @@ private class UserCreationControllerTest {
     Profile claimsUserProfile = [
       SELECT Id
       FROM Profile
-      WHERE Name = 'Claims User'
+      WHERE Name = 'Vet'
       LIMIT 1
     ];
 

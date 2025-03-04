@@ -1,16 +1,14 @@
-import { LightningElement, wire } from 'lwc';
+import { LightningElement, api } from 'lwc';
 
 export default class AppealsTable extends LightningElement {
 
-    appeals = []
+    @api appeals;
     error;
 
     tableRowData = [];
     tableColData = [
-        {label: 'Id', fieldName: 'Id', type: 'url'},
-        {label: 'Status', fieldName: 'Status', type: 'String'},
+        {label: 'Name', fieldName: 'Name', type: 'text', hideDefaultActions: 'true'},
+        {label: 'Status', fieldName: 'Status', type: 'text', hideDefaultActions: 'true'},
     ];
 
 }
-
-

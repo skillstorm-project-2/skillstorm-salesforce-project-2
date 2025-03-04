@@ -1,4 +1,4 @@
-public with sharing class UserCreationController {
+public without sharing class UserCreationController {
   @AuraEnabled
   public static String createUser(String userJson) {
     try {
@@ -13,7 +13,7 @@ public with sharing class UserCreationController {
       Id veteranUserId = [
         SELECT Id
         FROM Profile
-        WHERE Name = 'Claims User'
+        WHERE Name = 'Veteran'
         LIMIT 1
       ]
       .Id;
@@ -65,8 +65,8 @@ public with sharing class UserCreationController {
       List<String> keys = new List<String>{
         'Military_Branch__c',
         'Discharge_Status__c',
-        'Phone'
-        //, 'SSN__c'
+        'Phone',
+        'SSN__pc'
         // field only currently available in prod. Will be added back later.
       };
 

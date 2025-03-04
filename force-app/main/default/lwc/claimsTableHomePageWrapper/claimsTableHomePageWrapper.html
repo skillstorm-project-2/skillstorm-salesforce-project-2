@@ -1,0 +1,14 @@
+<template>
+    <div>
+        <template lwc:if={claims.length}>
+            <c-claims-table claims={claims} show-claim-type={showingClaimType}></c-claims-table>
+        </template>
+        <template lwc:else>
+            <lightning-card title="No Claims Found">
+                <div class="slds-p-horizontal_small">
+                    <p>No claims found for this account.</p>
+                </div>
+            </lightning-card>
+        </template>
+    </div>
+</template>

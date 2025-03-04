@@ -13,7 +13,7 @@ export default class AccountForm extends LightningElement {
     Service_Date_End__c: new Date(),
     parsedEndDate: "",
     Phone: "",
-    SSN__c: ""
+    SSN__pc: ""
   };
 
   get branchOptions() {

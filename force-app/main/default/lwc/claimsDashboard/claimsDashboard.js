@@ -10,6 +10,7 @@ export default class ClaimsDashboard extends NavigationMixin(LightningElement) {
     error;
     claims;
     personAccountId;
+    showingClaimType = 'ALL';
 
     @wire(getPersonAccountId)
     wiredAccountId({ data, error }) {
@@ -64,5 +65,9 @@ export default class ClaimsDashboard extends NavigationMixin(LightningElement) {
                 url: '/apex/VfAppeals' 
             }
         });
+    }
+
+    handleFilterClaims(event) {
+        this.showingClaimType = event.detail;
     }
 }

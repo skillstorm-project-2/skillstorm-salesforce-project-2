@@ -3,13 +3,16 @@ import { NavigationMixin } from 'lightning/navigation';
 import CURRENT_USER_ID from '@salesforce/user/Id';
 import getPersonAccountId from '@salesforce/apex/UserUtility.getPersonAccountId';
 import getClaims from '@salesforce/apex/ClaimsController.getClaims';
+import getActiveAppeals from '@salesforce/apex/ClaimsController.getActiveAppeals';
 
 export default class ClaimsDashboard extends NavigationMixin(LightningElement) {
 
     userId = CURRENT_USER_ID;
     error;
     claims;
+    activeAppeals = [];
     personAccountId;
+    showingClaimType = 'ALL';
 
     @wire(getPersonAccountId)
     wiredAccountId({ data, error }) {
@@ -39,11 +42,36 @@ export default class ClaimsDashboard extends NavigationMixin(LightningElement) {
         }
     }
 
+    @wire(getActiveAppeals, {accountId: '$personAccountId'})
+    wiredActiveAppeals({data, error}) {
+        if (data) {
+            this.activeAppeals = data.map(appeal => ({
+                Id: appeal.Id,
+                Name: appeal.Name,
+                Status: appeal.Status__c,
+                Claim: appeal.Claim__c
+            }))
+            this.error = undefined;
+        } else if (error) {
+            this.error = error;
+            console.error('Error fetching appeals');
+        }
+    }
+
     handleCreateClaim() {
         this[NavigationMixin.Navigate]({
             type:'standard__webPage',
             attributes: {
                 url: '/claims/create-claim'
+            }
+        })
+    }
+
+    handleCreateAppeal() {
+        this[NavigationMixin.Navigate]({
+            type:'standard__webPage',
+            attributes: {
+                url: '/claims/create-appeal'
             }
         })
     }
@@ -55,5 +83,9 @@ export default class ClaimsDashboard extends NavigationMixin(LightningElement) {
                 url: '/apex/VfAppeals' 
             }
         });
+    }
+
+    handleFilterClaims(event) {
+        this.showingClaimType = event.detail;
     }
 }

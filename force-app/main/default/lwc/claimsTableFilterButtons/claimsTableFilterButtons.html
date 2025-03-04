@@ -1,0 +1,25 @@
+<template>
+    <div style="display: flex; gap: 6px; ">
+        <lightning-button
+            label="Show All"
+            icon-name="utility:filter"
+            onclick={handleFilterAll}
+            class="slds-button slds-button_icon"
+            disabled={isShowingAll}>
+        </lightning-button>
+        <lightning-button
+            label="Show Open"
+            icon-name="utility:filter"
+            onclick={handleFilterActive}
+            class="slds-button slds-button_icon"
+            disabled={isShowingActive}>
+        </lightning-button>
+        <lightning-button
+            label="Show Closed"
+            icon-name="utility:filter"
+            onclick={handleFilterClosed}
+            class="slds-button slds-button_icon"
+            disabled={isShowingClosed}>
+        </lightning-button>
+    </div>
+</template>

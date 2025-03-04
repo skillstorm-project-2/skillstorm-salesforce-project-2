@@ -1,40 +1,51 @@
 <template>
-    <div>
-        <!-- action bar -->
-        <div class="slds-m-bottom_medium slds-grid slds-wrap">
-            <div>
-                <lightning-button
-                    label="Create Claim"
-                    variant="brand"
-                    onclick={handleCreateClaim}
-                ></lightning-button>
+    <!-- Buttons row -->
+    <div class="slds-grid slds-gutters slds-m-bottom_medium">
+        <!-- Filters Section -->
+        <div class="slds-col slds-size_8-of-12">
+            <div class="slds-p-vertical_small">
+                <c-claims-table-filter-buttons
+                    onfilterclaims={handleFilterClaims}
+                ></c-claims-table-filter-buttons>
             </div>
-            <div class="slds-m-left_x-large">
-                <lightning-button
-                    label="Create Appeal"
-                    variant="brand"
-                ></lightning-button>
+        </div>
+
+        <!-- Other -->
+        <div class="slds-col slds-size_4-of-12">
+            <div class="slds-p-around_small">
+                <div class="slds-grid slds-grid_align-end">
+                    <lightning-button-group>
+                        <lightning-button label="New Claim"  onclick={handleCreateClaim}></lightning-button>
+                        <lightning-button label="New Appeal"  onclick={handleCreateAppeal}></lightning-button>
+                        <lightning-button label="Export"  onclick={handlePDF}></lightning-button>
+                    </lightning-button-group>
+                </div>
             </div>
-            <div class="slds-m-left_x-large">
-                <lightning-button
-                label="Export to PDF"
-                variant="brand"
-                onclick={handlePDF}
-                ></lightning-button>
-            </div>
-         </div>
+        </div>
     </div>
-    <div class="slds-grid slds-gutters slds-grid_align-stretch">
+
+    <!-- Tables Row -->
+    <div class="slds-grid slds-gutters">
         <!-- Claims Table -->
         <div class="slds-col slds-size_8-of-12">
             <template lwc:if={claims.length}>
-                <c-claims-table claims={claims}></c-claims-table>
+                <c-claims-table 
+                    claims={claims}
+                    show-claim-type={showingClaimType}
+                ></c-claims-table>
+            </template>
+            <template lwc:else>
+                <lightning-card title="No Claims Found">
+                    <div class="slds-p-horizontal_small">
+                        <p>No claims found for this account.</p>
+                    </div>
+                </lightning-card>
             </template>
         </div>
 
-        <!-- Submit Claim Form -->
+        <!-- Appeals Table -->
         <div class="slds-col slds-size_4-of-12">
-            <c-appeals-table></c-appeals-table>
+            <c-appeals-table appeals={activeAppeals}></c-appeals-table>
         </div>
     </div>
 </template>

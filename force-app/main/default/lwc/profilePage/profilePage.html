@@ -1,27 +1,77 @@
 <template>
-    <lightning-record-edit-form
-        record-id="0014C000016ctr2QAA"
-        object-api-name="Account"
-        density="comfy"
-    >
-        <lightning-messages> </lightning-messages>
-        <lightning-input-field field-name={name}> </lightning-input-field>
-        <lightning-input-field field-name={email}> </lightning-input-field>
-        <lightning-input-field field-name={phone}> </lightning-input-field>
-        <lightning-input-field field-name={ssn}> </lightning-input-field>
-        <lightning-input-field field-name={militaryBranch}> </lightning-input-field>
-        <lightning-input-field field-name={serviceDateStart}> </lightning-input-field>
-        <lightning-input-field field-name={serviceDateEnd}> </lightning-input-field>
-        <lightning-input-field field-name={dischargeStatus}> </lightning-input-field>
-        <lightning-input-field field-name={disabilityRating}> </lightning-input-field>
-        <lightning-button
-            class="slds-m-top_small"
-            variant="brand"
-            type="submit"
-            name="update"
-            label="Update"
-        >
-        </lightning-button>
-    </lightning-record-edit-form>
-</template>
+    <div class="slds-card">
+        <!-- Header -->
+        <div class="slds-p-around_medium slds-border_bottom">
+            <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
+                <div class="slds-media">
+                    <div class="slds-media__figure">
+                        <span class="slds-avatar slds-avatar_large">
+                            <lightning-icon icon-name="standard:avatar" size="large"></lightning-icon>
+                        </span>
+                    </div>
+                    <div class="slds-media__body">
+                        <h1 class="slds-text-heading_large">Profile</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div class="slds-p-around_medium">
+            <lightning-record-edit-form
+                record-id={personAccountId}
+                object-api-name="Account"
+                onsuccess={handleSuccess}
+                onerror={handleError}
+                density="comfy"
+            >
+                <lightning-messages></lightning-messages>
+                
+                <!-- Personal Information Section -->
+                <div class="slds-section slds-is-open">
+                    <h3 class="slds-section__title slds-theme_shade">
+                        <span class="slds-truncate slds-p-horizontal_small" title="Personal Information">Personal Information</span>
+                    </h3>
+                    <div class="slds-grid slds-gutters slds-wrap slds-p-around_medium">
+                        <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                            <lightning-input-field field-name={name}></lightning-input-field>
+                            <lightning-input-field field-name={email}></lightning-input-field>
+                            <lightning-input-field field-name={phone}></lightning-input-field>
+                        </div>
+                        <!-- <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                            <lightning-input-field field-name={ssn}></lightning-input-field>
+                        </div> -->
+                    </div>
+                </div>
+
+                <!-- Military Service Section -->
+                <div class="slds-section slds-is-open">
+                    <h3 class="slds-section__title slds-theme_shade">
+                        <span class="slds-truncate slds-p-horizontal_small" title="Military Service">Military Service</span>
+                    </h3>
+                    <div class="slds-grid slds-gutters slds-wrap slds-p-around_medium">
+                        <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                            <lightning-input-field field-name={militaryBranch}></lightning-input-field>
+                            <lightning-input-field field-name={serviceDateStart}></lightning-input-field>
+                            <lightning-input-field field-name={disabilityRating}></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                            <lightning-input-field field-name={dischargeStatus}></lightning-input-field>
+                            <lightning-input-field field-name={serviceDateEnd}></lightning-input-field>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="slds-m-top_medium slds-text-align_center">
+                    <lightning-button
+                        variant="brand"
+                        type="submit"
+                        name="update"
+                        label="Save Changes"
+                    >
+                    </lightning-button>
+                </div>
+
+            </lightning-record-edit-form>
+        </div>
+    </div>
+</template>

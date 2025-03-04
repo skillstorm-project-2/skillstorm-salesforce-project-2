@@ -3,12 +3,14 @@ import { NavigationMixin } from 'lightning/navigation';
 import CURRENT_USER_ID from '@salesforce/user/Id';
 import getPersonAccountId from '@salesforce/apex/UserUtility.getPersonAccountId';
 import getClaims from '@salesforce/apex/ClaimsController.getClaims';
+import getActiveAppeals from '@salesforce/apex/ClaimsController.getActiveAppeals';
 
 export default class ClaimsDashboard extends NavigationMixin(LightningElement) {
 
     userId = CURRENT_USER_ID;
     error;
     claims;
+    activeAppeals = [];
     personAccountId;
     showingClaimType = 'ALL';
 
@@ -37,6 +39,22 @@ export default class ClaimsDashboard extends NavigationMixin(LightningElement) {
             this.error = result.error;
             this.claims = [];
             console.error(result.error);
+        }
+    }
+
+    @wire(getActiveAppeals, {accountId: '$personAccountId'})
+    wiredActiveAppeals({data, error}) {
+        if (data) {
+            this.activeAppeals = data.map(appeal => ({
+                Id: appeal.Id,
+                Name: appeal.Name,
+                Status: appeal.Status__c,
+                Claim: appeal.Claim__c
+            }))
+            this.error = undefined;
+        } else if (error) {
+            this.error = error;
+            console.error('Error fetching appeals');
         }
     }
 

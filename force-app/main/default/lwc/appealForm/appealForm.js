@@ -56,14 +56,11 @@ export default class AppealForm extends LightningElement {
         event.preventDefault();
 
         const fields = event.detail.fields;
-        fields[STATUS_FIELD.fieldApiName] = 'In Review';
-        console.log(STATUS_FIELD.fieldApiName);
+        fields[STATUS_FIELD.fieldApiName] = 'Awaiting Review';
 
         // To Do
         // fields.AppealType = this.selectedAppealOption;
 
-        console.log(this.selectedAppealOption);
-        console.log(fields);
 
         this.template.querySelector('lightning-record-edit-form').submit(fields);
     }

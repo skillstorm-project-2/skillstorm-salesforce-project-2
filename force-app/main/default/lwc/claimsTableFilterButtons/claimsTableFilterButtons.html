@@ -1,28 +1,27 @@
 <template>
-    <div>
-        <hr style="margin: 8px !important;">
-    </div>
-    <div style="display: flex; gap: 10px; padding-bottom: 16px; padding-top: 12px;">
-        <lightning-button
-            label="Show All"
-            icon-name="utility:filter"
-            onclick={handleFilterAll}
-            class="slds-button slds-button_icon"
-            disabled={isShowingAll}>
-        </lightning-button>
-        <lightning-button
-            label="Show Open"
-            icon-name="utility:filter"
-            onclick={handleFilterActive}
-            class="slds-button slds-button_icon"
-            disabled={isShowingActive}>
-        </lightning-button>
-        <lightning-button
-            label="Show Closed"
-            icon-name="utility:filter"
-            onclick={handleFilterClosed}
-            class="slds-button slds-button_icon"
-            disabled={isShowingClosed}>
-        </lightning-button>
+    <div style="padding-bottom: 16px; padding-top: 12px;">
+        <lightning-button-group>
+            <lightning-button
+                label="Show All"
+                icon-name="utility:filter"
+                onclick={handleFilterAll}
+                class="slds-button slds-button_icon"
+                disabled={isShowingAll}>
+            </lightning-button>
+            <lightning-button
+                label="Show Open"
+                icon-name="utility:filter"
+                onclick={handleFilterActive}
+                class="slds-button slds-button_icon"
+                disabled={isShowingActive}>
+            </lightning-button>
+            <lightning-button
+                label="Show Closed"
+                icon-name="utility:filter"
+                onclick={handleFilterClosed}
+                class="slds-button slds-button_icon"
+                disabled={isShowingClosed}>
+            </lightning-button>
+        </lightning-button-group>
     </div>
 </template>

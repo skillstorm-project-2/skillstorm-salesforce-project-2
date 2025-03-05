@@ -3,12 +3,9 @@ import vaFooterLogo from '@salesforce/resourceUrl/VAClaimsPortalFooterImage';
 
 export default class SiteFooter extends LightningElement {
     footerImageUrl = vaFooterLogo;
+    originalContentHeight;
 
     connectedCallback() {
-        window.addEventListener('load', () => {
-            this.adjustFooter();
-        });
-
         window.addEventListener('resize', () => {
             this.adjustFooter();
         });
@@ -19,7 +16,7 @@ export default class SiteFooter extends LightningElement {
     }
 
     renderedCallback() {
-        this.adjustFooter();
+        this.handlePageChange();
     }
 
     disconnectedCallback() {
@@ -32,13 +29,28 @@ export default class SiteFooter extends LightningElement {
     };
 
     adjustFooter() {
-        const footer = this.template.querySelector('.lwc-footer');
-        const bodyHeight = document.body.scrollHeight;
-        const viewportHeight = window.innerHeight;
+        const bodyHeight = document.getElementsByClassName('body')[0].offsetHeight;// the height of the content
+        
+        if (bodyHeight == 0) {
+            this.handlePageChange();
+            return;
+        }
+        
+        const viewportHeight = window.innerHeight; // the height of the user's screen
 
-        if (bodyHeight < viewportHeight) {
-            footer.style.position = 'fixed';
-            footer.style.bottom = '0';
+        const footer = document.getElementsByClassName('footer')[0];
+        const navbar = document.getElementsByClassName('a11y-banner')[0];
+
+        console.log("Adjusting footer");
+
+        //console.log("Body height", bodyHeight);
+        //console.log("Viewport height", viewportHeight);
+
+        if (bodyHeight <= viewportHeight) {
+            //console.log("Footer height", footer.offsetHeight);
+            //console.log("Navbar height", navbar.offsetHeight);
+
+            footer.style.marginTop = `${((viewportHeight + navbar.offsetHeight) - (footer.offsetHeight + bodyHeight))}px`;
             footer.style.width = '100%';
         } else {
             footer.style.position = 'relative';

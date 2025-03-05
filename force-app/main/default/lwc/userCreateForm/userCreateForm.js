@@ -1,6 +1,5 @@
 import { LightningElement, track } from "lwc";
 import createUser from "@salesforce/apex/UserCreationController.createUser";
-
 export default class UserCreateForm extends LightningElement {
   @track userRecord = {
     FirstName: "",
@@ -105,5 +104,15 @@ export default class UserCreateForm extends LightningElement {
           : "Unknown error";
 
     this.showToast("Error", errorMessage, "error");
+  }
+
+  navigateToLogin() {
+    console.log("navigateToLogin() called");
+    try {
+      window.location.href = "/s/login";
+      console.log("Redirecting via window.location.href");
+    } catch (error) {
+      console.error("Navigation error:", error);
+    }
   }
 }

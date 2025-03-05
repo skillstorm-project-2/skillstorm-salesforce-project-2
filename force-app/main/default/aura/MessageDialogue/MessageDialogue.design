@@ -1,0 +1,4 @@
+<design:component>
+    <design:attribute name="content" label="Content" description="Enter component contents" />
+    <design:attribute name="variant" label="Use Alert Style" default="false"/>
+</design:component>

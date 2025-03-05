@@ -1,0 +1,16 @@
+<aura:component implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" access="global">
+
+    <aura:attribute name="content" type="String" default="Your content goes here!"/>
+    <aura:attribute name="variant" type="Boolean" default="false"/>
+
+    <aura:if isTrue="{!v.variant}">
+        <div style="border-radius: 6px; border: 1px solid #ffe69c; background-color: #fff3cd; padding: 16px;">
+            <lightning:formattedRichText value="{!v.content}" />
+        </div>
+    </aura:if>
+    <aura:if isTrue="{!NOT(v.variant)}">
+        <div style="border-radius: 6px; border: 1px solid #777; background-color: white; padding: 16px;">
+            <lightning:formattedRichText value="{!v.content}" />
+        </div>
+    </aura:if>
+</aura:component>

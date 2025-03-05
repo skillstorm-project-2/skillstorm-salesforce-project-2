@@ -1,24 +1,46 @@
-import { LightningElement, api } from "lwc";
+import { LightningElement, api, track } from "lwc";
 
 export default class ModalNotification extends LightningElement {
   @api title = "Notification";
-  @api message = "";
+  @api message = "Operation completed successfully.";
   @api variant = "info";
-  @api isOpen = false;
+  @track isOpen = false;
+  @track fadeOutClass = "";
 
-  get headerClass() {
-    return `slds-modal__header slds-theme_${this.variant}`;
+  get toastClass() {
+    return `slds-notify slds-notify_toast slds-theme_${this.variant} ${this.fadeOutClass}`;
   }
 
-  @api
-  closeModal() {
-    this.isOpen = false;
-    // Dispatch an event to let the parent component know the modal was closed
-    this.dispatchEvent(new CustomEvent("close"));
+  get iconName() {
+    return (
+      {
+        success: "utility:success",
+        error: "utility:error",
+        warning: "utility:warning",
+        info: "utility:info"
+      }[this.variant] || "utility:info"
+    );
   }
 
-  @api
-  openModal() {
+  @api showToast() {
     this.isOpen = true;
+    this.fadeOutClass = "show";
+
+    if (this.variant !== "error") {
+      setTimeout(() => {
+        this.fadeOut();
+      }, 2000);
+    }
+  }
+
+  fadeOut() {
+    this.fadeOutClass = "hide";
+    setTimeout(() => {
+      this.isOpen = false;
+    }, 300);
+  }
+
+  closeToast() {
+    this.fadeOut();
   }
 }

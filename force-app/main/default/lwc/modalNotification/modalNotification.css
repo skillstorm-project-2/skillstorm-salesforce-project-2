@@ -1,0 +1,29 @@
+.slds-notify_container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.slds-notify {
+  min-width: 250px;
+  max-width: 400px;
+  opacity: 0; /* Initially hidden */
+  transform: translateY(20px); /* Start position */
+  transition:
+    opacity 0.3s ease-out,
+    transform 0.3s ease-out;
+}
+
+.slds-notify.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slds-notify.hide {
+  opacity: 0;
+  transform: translateY(20px);
+}

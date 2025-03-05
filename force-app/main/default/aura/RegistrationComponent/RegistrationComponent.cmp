@@ -1,4 +1,5 @@
 <aura:component implements="forceCommunity:availableForAllPageTypes">
+  <lightning:notificationsLibrary aura:id="notifLib" />
   <!-- Existing Attributes -->
   <aura:attribute name="currentStep" type="String" default="1" />
   <aura:attribute name="userId" type="String" />
@@ -7,7 +8,6 @@
   <aura:attribute name="modalTitle" type="String" default="" />
   <aura:attribute name="modalMessage" type="String" default="" />
   <aura:attribute name="modalVariant" type="String" default="info" />
-  <aura:attribute name="showModal" type="Boolean" default="false" />
 
   <div class="slds-grid slds-wrap full-width">
     <div class="slds-col slds-size_1-of-1">
@@ -46,12 +46,5 @@
     </div>
   </div>
 
-  <!-- Include the LWC modal component -->
-  <c:modalNotification
-    title="{!v.modalTitle}"
-    message="{!v.modalMessage}"
-    variant="{!v.modalVariant}"
-    isOpen="{!v.showModal}"
-    onclose="{!c.handleModalClose}"
-  />
+  <c:modalNotification aura:id="toastComponent" />
 </aura:component>

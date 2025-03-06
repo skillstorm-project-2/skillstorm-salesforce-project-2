@@ -25,3 +25,8 @@
   color: white;
   text-decoration: none;
 }
+
+.lwc-footer a:hover,
+.lwc-footer a:focus {
+  color: rgb(36, 119, 204);
+}

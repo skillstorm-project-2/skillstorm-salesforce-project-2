@@ -52,7 +52,7 @@ export default class ClaimForm extends LightningElement {
     subjectField = SUBJECT_FIELD;
     statusField = STATUS_FIELD;
     originField = ORIGIN_FIELD;
-    
+
     claimId;
     claimType;
     recordTypeId;
@@ -213,12 +213,14 @@ export default class ClaimForm extends LightningElement {
             'Pension': [
                 ...this.serviceDateFields,
                 {
-                    field: AGE_FIELD,   
+                    field: AGE_FIELD,
+                    label: 'Age',   
                     disabled: true,                   
                     value: this.age,
                 },
                 {
-                    field: DISABILITY_FIELD,     
+                    field: DISABILITY_FIELD,
+                    label: 'Disability Rating',     
                     disabled: true,                   
                     value: this.disabilityRating,    
                 },

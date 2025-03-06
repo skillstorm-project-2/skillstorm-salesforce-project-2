@@ -23,43 +23,6 @@ import CLAIM_EDUCATION_INSTITUTION from '@salesforce/schema/Case.Education_Train
 import CLAIM_SERVICE_INJURY from '@salesforce/schema/Case.Service_Connected_Injury__c';
 import CLAIM_INJURY_DATE from '@salesforce/schema/Case.Date_of_Injury__c';
 
-//Housing Assistance
-//Income_Details__c
-//Housing_Status__c
-//Service_Start_Date__c
-//Service_End_Date__c
-//Disability_Status__c
-//Credit_Score__c
-//Decision_Reason__c
-
-//Pension
-//Age__c
-//Income_Details__c
-//Housing_Status__c
-//Decision_Reason__c
-
-//Healthcare Benefits
-//Income_Details__c
-//Service_Start_Date__c
-//Service_End_Date__c
-//Current_Health_Status__c
-//Housing_Status__c
-//Decision_Reason__c
-
-//Education & Training
-//Service_Start_Date__c
-//Service_End_Date__c
-//Type_of_training_education__c
-//Education_Training_Institution__c
-//Housing_Status__c
-//Decision_Reason__c
-
-//Disability Compensation
-//Service_Connected_Injury__c
-//Date_of_Injury__c
-//Housing_Status__c
-//Decision_Reason__c
-
 /**
  * Don't just import everything, because then users can see what they shouldn't
  */

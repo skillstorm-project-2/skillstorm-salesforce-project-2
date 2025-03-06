@@ -8,18 +8,22 @@ import SERVICE_DATE_START_FIELD from "@salesforce/schema/Account.Service_Date_St
 import SERVICE_DATE_END_FIELD from "@salesforce/schema/Account.Service_Date_End__c";
 import DISCHARGE_STATUS_FIELD from "@salesforce/schema/Account.Discharge_Status__c";
 import DISABILITY_RATING_FIELD from "@salesforce/schema/Account.Disability_Rating__c";
+import PERMANENTLY_DISABLED_FIELD from "@salesforce/schema/Account.Permanently_Disabled__c";
+import BIRTH_DATE_FIELD from "@salesforce/schema/Account.PersonBirthdate"
 import getPersonAccountId from "@salesforce/apex/UserUtility.getPersonAccountId";
 
 export default class ProfilePage extends LightningElement {
   name = NAME_FIELD;
   email = EMAIL_FIELD;
   phone = PHONE_FIELD;
+  birthDate = BIRTH_DATE_FIELD;
   ssn = "@salesforce/schema/Account.SSN__pc";
   militaryBranch = MILITARY_BRANCH_FIELD;
   serviceDateStart = SERVICE_DATE_START_FIELD;
   serviceDateEnd = SERVICE_DATE_END_FIELD;
   dischargeStatus = DISCHARGE_STATUS_FIELD;
   disabilityRating = DISABILITY_RATING_FIELD;
+  permanentlyDisabled = PERMANENTLY_DISABLED_FIELD;
 
   personAccountId;
   ssnValue = ""; // This will hold the SSN input value

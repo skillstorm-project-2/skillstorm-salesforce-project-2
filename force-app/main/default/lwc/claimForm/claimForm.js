@@ -93,7 +93,10 @@ export default class ClaimForm extends LightningElement {
             // filter out inactive and 'Master' record types
             // Transform data for combobox options
             this.recordTypeOptions = Object.keys(recordTypeData)
-                .filter(recordTypeId => recordTypeData[recordTypeId].available && !recordTypeData[recordTypeId].master )
+                .filter(recordTypeId => recordTypeData[recordTypeId].available 
+                    && !recordTypeData[recordTypeId].master 
+                    && recordTypeData[recordTypeId].name !== 'VA Claim'
+                )
                 .map(recordTypeId => ({
                     label: recordTypeData[recordTypeId].name, // Record Type label
                     value: recordTypeData[recordTypeId].recordTypeId // Record Type Id
@@ -239,7 +242,14 @@ export default class ClaimForm extends LightningElement {
             ],
             'Housing Assistance': [
                 ...this.serviceDateFields,
+                {
+                    field: DISABILITY_FIELD,
+                    label: 'Disability Rating',     
+                    disabled: true,                   
+                    value: this.disabilityRating,    
+                },
                 HOUSING_STATUS_FIELD,
+                INCOME_FIELD,
                 CREDIT_SCORE_FIELD
             ],
         }

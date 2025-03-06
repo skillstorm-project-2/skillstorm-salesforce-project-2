@@ -29,6 +29,7 @@ export default class ClaimsDashboard extends NavigationMixin(LightningElement) {
         if (result.data) {
             this.claims = result.data.map(claim => ({
                 Id:  claim.Id,
+                CaseNumber: claim.CaseNumber,
                 IdLink: `/claims/claim-detail?recordId=${claim.Id}`,
                 Type: claim.Claim_Type__c,
                 Status: claim.Claim_Status__c,

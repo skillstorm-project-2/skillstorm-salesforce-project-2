@@ -37,12 +37,50 @@
                             <p><strong>Created On: </strong> <span class="claim-type">{claimObj.fields.CreatedDate.displayValue}</span></p>
                             <p><strong>Claim Type: </strong> <span class="claim-type">{claimObj.fields.Claim_Type__c.displayValue}</span></p>
                             <p><strong>Claim Status: </strong> <span class="claim-status">{claimObj.fields.Claim_Status__c.displayValue}</span></p>
+                            <div>
+                                <template lwc:if={isPension}>
+                                    <p><strong>Age: </strong> <span class="claim-status">{claimObj.fields.Age__c.value}</span></p>
+                                    <p><strong>Income Details: </strong> <span class="claim-status">{claimObj.fields.Income_Details__c.value}</span></p>
+                                </template>
+                                <template lwc:elseif={isHousingAssistance}>
+                                    <p><strong>Income Details: </strong> <span class="claim-type">{claimObj.fields.Income_Details__c.value}</span></p>
+                                    <p><strong>Housing Status: </strong> <span class="claim-type">{claimObj.fields.Housing_Status__c.value}</span></p>
+                                    <p><strong>Service Start Date: </strong> <span class="claim-type">{claimObj.fields.Service_Start_Date__c.displayValue}</span></p>
+                                    <p><strong>Service End Date: </strong> <span class="claim-type">{claimObj.fields.Service_End_Date__c.displayValue}</span></p>
+                                    <p><strong>Disability Status: </strong> <span class="claim-type">{claimObj.fields.Disability_Status__c.value}</span></p>
+                                    <p><strong>Credit Score: </strong> <span class="claim-type">{claimObj.fields.Credit_Score__c.value}</span></p>
+                                </template>
+                                <template lwc:elseif={isHealthcareBenefits}>
+                                    <p><strong>Income Details: </strong> <span class="claim-type">{claimObj.fields.Income_Details__c.value}</span></p>
+                                    <p><strong>Service Start Date: </strong> <span class="claim-type">{claimObj.fields.Service_Start_Date__c.displayValue}</span></p>
+                                    <p><strong>Service End Date: </strong> <span class="claim-type">{claimObj.fields.Service_End_Date__c.displayValue}</span></p>
+                                    <p><strong>Current Health Status: </strong> <span class="claim-type">{claimObj.fields.Current_Health_Status__c.value}</span></p>
+                                </template>
+                                <template lwc:elseif={isEducationAndTraining}>
+                                    <p><strong>Housing Status: </strong> <span class="claim-type">{claimObj.fields.Housing_Status__c.value}</span></p>
+                                    <p><strong>Service Start Date: </strong> <span class="claim-type">{claimObj.fields.Service_Start_Date__c.displayValue}</span></p>
+                                    <p><strong>Service End Date: </strong> <span class="claim-type">{claimObj.fields.Service_End_Date__c.displayValue}</span></p>
+                                    <p><strong>Type of Training: </strong> <span class="claim-type">{claimObj.fields.Type_of_training_education__c.value}</span></p>
+                                    <p><strong>Educational Institution: </strong> <span class="claim-type">{claimObj.fields.Education_Training_Institution__c.value}</span></p>
+                                </template>
+                                <template lwc:elseif={isDisabilityCompensation}>
+                                    <p><strong>Date of Injury: </strong> <span class="claim-type">{claimObj.fields.Date_of_Injury__c.displayValue}</span></p>
+                                    <p><strong>Injury: </strong> <span class="claim-type">{claimObj.fields.Service_Connected_Injury__c.value}</span></p>
+                                </template>
+                            </div>
                             <div class="slds-p-vertical_medium">
                                 <p><strong>Subject: </strong></p>
                                 <p>{claimObj.fields.Subject.value}</span></p>
                                 <br />
                                 <p><strong>Description: </strong></p>
                                 <p>{claimObj.fields.Description.value}</p>
+                            </div>
+                            <div>
+                                <template lwc:if={isDenied}>
+                                    <br />
+                                    <p><strong>Decision Reason: </strong></p>
+                                    <p>{claimObj.fields.Decision_Reason__c.value}</span></p>
+                                </template>
                             </div>
                         </div>
                     </div>

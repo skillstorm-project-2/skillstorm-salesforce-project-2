@@ -42,20 +42,29 @@
             >
           </h3>
           <div class="slds-grid slds-gutters slds-wrap slds-p-around_medium">
+            <!-- Full-width Name Field -->
+            <div class="slds-col slds-size_1-of-1 slds-p-horizontal_small">
+                <lightning-input-field field-name={name}></lightning-input-field>
+            </div>
+            
+            <!-- Two Column Layout for Remaining Fields -->
             <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
-              <lightning-input-field field-name={name}></lightning-input-field>
-              <lightning-input-field field-name={email}></lightning-input-field>
-              <lightning-input-field field-name={phone}></lightning-input-field>
-              <!-- Custom input for SSN -->
-              <lightning-input
-                label="SSN"
-                type="password"
-                value={ssnValue}
-                placeholder={ssnPlaceholder}
-                onchange={handleSSNChange}
-                pattern="[0-9]{3}-[0-9]{2}-[0-9]{4}"
-              >
-              </lightning-input>
+                <lightning-input-field field-name={birthDate}></lightning-input-field>
+                <lightning-input-field field-name={email}></lightning-input-field>
+            </div>
+            
+            <div class="slds-col slds-size_1-of-2 slds-p-horizontal_small">
+                <lightning-input-field field-name={phone}></lightning-input-field>
+                <!-- Custom input for SSN -->
+                <lightning-input
+                    label="SSN"
+                    type="password"
+                    value={ssnValue}
+                    placeholder={ssnPlaceholder}
+                    onchange={handleSSNChange}
+                    pattern="[0-9]{3}-[0-9]{2}-[0-9]{4}"
+                >
+                </lightning-input>
             </div>
           </div>
         </div>
@@ -87,6 +96,9 @@
               ></lightning-input-field>
               <lightning-input-field
                 field-name={serviceDateEnd}
+              ></lightning-input-field>
+              <lightning-input-field
+                field-name={permanentlyDisabled}
               ></lightning-input-field>
             </div>
           </div>

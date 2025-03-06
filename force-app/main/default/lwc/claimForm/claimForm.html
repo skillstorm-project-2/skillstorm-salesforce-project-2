@@ -38,12 +38,13 @@
 
                                     <!-- if it contains 'field', then its read-only -->
                                     <template lwc:if={field.field}>
+                                        <!-- Reference field values dont exist until a record is created. To display these on the form, the data is pulled from the account object -->
                                         <div class="slds-m-bottom_medium" key={field.field}>
-                                            <lightning-input-field 
-                                                disabled={field.disabled}
-                                                field-name={field.field}
+                                            <lightning-input
+                                                disabled
                                                 value={field.value}
-                                            ></lightning-input-field>
+                                                label={field.label}
+                                            ></lightning-input>
                                         </div>
                                     </template>
                                     <template lwc:else>

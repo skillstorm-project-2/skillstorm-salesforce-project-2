@@ -4,6 +4,10 @@ import getPersonAccountId from '@salesforce/apex/UserUtility.getPersonAccountId'
 import CLAIM_LOOKUP_FIELD from '@salesforce/schema/Appeal__c.Claim__c';
 import STATUS_FIELD from '@salesforce/schema/Appeal__c.Status__c';
 import DESCRIPTION_FIELD from '@salesforce/schema/Appeal__c.Appeal_Description__c';
+import SUBMIT_EVIDENCE_FIELD from '@salesforce/schema/Appeal__c.Submit_New_Evidence__c';
+import REQUEST_HIGHER_REVIEW from '@salesforce/schema/Appeal__c.Request_for_Higher_Review__c';
+import REQUEST_IN_PERSON_FIELD from '@salesforce/schema/Appeal__c.Request_for_In_Person_Hearing__c';
+
 
 export default class AppealForm extends LightningElement {
     personAccountId;
@@ -11,15 +15,14 @@ export default class AppealForm extends LightningElement {
     @api currentStep = '1';
     uploadedFilesList = [];
 
-    selectedAppealOption;
+    selectedAppealOption; 
     appealTypeOptions = [
-        {label: "Submit New Evidence", value: "1"},
-        {label: "Request Review by Higher Authority", value: "2"},
-        {label: "Request In Person Review Hearing", value: "3"},
+        {label: "Submit New Evidence", value: SUBMIT_EVIDENCE_FIELD.fieldApiName},
+        {label: "Request Review by Higher Authority", value: REQUEST_HIGHER_REVIEW.fieldApiName},
+        {label: "Request In Person Review Hearing", value: REQUEST_IN_PERSON_FIELD.fieldApiName},
     ];
 
     claimField = CLAIM_LOOKUP_FIELD;
-    // statusField = STATUS_FIELD;
     descriptionField = DESCRIPTION_FIELD;
 
     get isFirstStep() {
@@ -55,13 +58,22 @@ export default class AppealForm extends LightningElement {
     handleSubmit(event) {
         event.preventDefault();
 
+        // validate that a radio button was selected
+        if (!this.selectedAppealOption) {
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Error',
+                    message: 'You must select a Type of Appeal before continuing.',
+                    variant: 'error'
+                })
+            );
+            return;
+        }
         const fields = event.detail.fields;
+
         fields[STATUS_FIELD.fieldApiName] = 'Awaiting Review';
-
-        // To Do
-        // fields.AppealType = this.selectedAppealOption;
-
-
+        fields[this.selectedAppealOption] = true;
+    
         this.template.querySelector('lightning-record-edit-form').submit(fields);
     }
 

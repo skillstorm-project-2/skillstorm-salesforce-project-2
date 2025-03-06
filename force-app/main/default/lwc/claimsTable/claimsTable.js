@@ -6,8 +6,8 @@ export default class ClaimsTable extends LightningElement {
 
     tableRowData = [];
     tableColData = [
-        {label: 'Id', fieldName: 'IdLink', type: 'url', hideDefaultActions: 'true', resizable: 'false', typeAttributes: {
-            label: {fieldName: 'Id'},
+        {label: 'Name', fieldName: 'IdLink', type: 'url', hideDefaultActions: 'true', resizable: 'false', typeAttributes: {
+            label: {fieldName: 'CaseNumber'},
             target: '_self'
         } },
         {label: 'Type', fieldName: 'Type', type: 'text', hideDefaultActions: 'true', resizable: 'false' },

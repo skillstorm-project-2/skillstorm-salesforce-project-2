@@ -5,7 +5,7 @@ public with sharing class ClaimsController {
     public static List<Case> getClaims(Id accountId){
         try {
 
-            String queryString = 'SELECT Id, Claim_Type__c, Claim_Status__c, CreatedDate ' + 
+            String queryString = 'SELECT Id, CaseNumber, Claim_Type__c, Claim_Status__c, CreatedDate ' + 
                                 ' FROM Case' + 
                                 ' WHERE AccountId =:accountId' + 
                                 ' ORDER BY CreatedDate DESC';

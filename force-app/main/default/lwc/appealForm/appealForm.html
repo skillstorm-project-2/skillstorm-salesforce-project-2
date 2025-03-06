@@ -26,17 +26,16 @@
                                 <lightning-input-field field-name={descriptionField}></lightning-input-field>
                             </div>
                             <div class="slds-m-bottom_medium">
-                                <div class="slds-form-element__label slds-var-m-left_xx-small"> Type of Appeal </div>
-                                <lightning-helptext content="Select how you want to appeal this denied claim."></lightning-helptext>
+
                                 <lightning-radio-group
                                     name="appealType"
+                                    label="Type of Appeal"
                                     options={appealTypeOptions}
                                     value={selectedAppealOption}
                                     type="radio"
                                     onchange={handleAppealChange}
-                                >
-
-                                </lightning-radio-group>
+                                    required=true
+                                ></lightning-radio-group>
                             </div>
                             <div class="slds-m-top_medium slds-text-align_center">
                                 <lightning-button 

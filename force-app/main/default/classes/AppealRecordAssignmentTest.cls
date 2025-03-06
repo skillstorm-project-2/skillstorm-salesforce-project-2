@@ -23,16 +23,26 @@
 private class AppealRecordAssignmentTest {
 
     @isTest
-    static void testOwnerIdChangedSuccessfully() {
+    static void testExtraQueueLoading() {
+        AppealQueueProcessor processor = new AppealQueueProcessor();
+        ClaimTestTriggerControl.isTest = true;
+
+        System.assert(processor.getBranchQueues().get('in_person') != null);
+        System.assert(processor.getBranchQueues().get('higher_review') != null);
+    }
+
+    @isTest
+    static void testOwnerIdChangedForInPersonReview() {
         AppealQueueProcessor processor = new AppealQueueProcessor();
         ClaimTestTriggerControl.isTest = true;
 
         Account testAccount = new Account(
-            Name = 'Test Account',
+            LastName = 'Test Account',
             Military_Branch__c = 'Army',
             Discharge_Status__c = 'Honorable Discharge', 
             Service_Date_End__c = Date.today(), 
-            Service_Date_Start__c = Date.today()
+            Service_Date_Start__c = Date.today(),
+            recordTypeId = (Id)Schema.SObjectType.Account.getRecordTypeInfosByName().get('Person Account').getRecordTypeId()
         );
         insert testAccount;
         
@@ -41,8 +51,91 @@ private class AppealRecordAssignmentTest {
             Description = 'Test Description',
             Status = 'New',
             Origin = 'Web',
-            Claim_Type__c = 'Pension',
-            AccountId = testAccount.Id
+            Claim_Type__c = 'Housing Assistance',
+            AccountId = testAccount.Id,
+            recordTypeId = (Id)Schema.SObjectType.Case.getRecordTypeInfosByName().get('Housing Assistance').getRecordTypeId()
+        );
+        insert testCase;
+
+        Appeal__c testAppeal = new Appeal__c(
+            Claim__c = testCase.Id,
+            Appeal_Description__c = 'Test Appeal',
+            Request_for_In_Person_Hearing__c = true
+        );
+        List<Appeal__c> testAppeals = new List<Appeal__c>{testAppeal};
+
+        Test.startTest();
+        processor.process(testAppeals, null);
+        Test.stopTest();
+
+        System.assertNotEquals(null, testAppeal.OwnerId);
+        System.assertEquals(processor.getBranchQueues().get('in_person').Id, testAppeal.OwnerId);
+    }
+
+    @isTest
+    static void testOwnerIdChangedForHigherReview() {
+        AppealQueueProcessor processor = new AppealQueueProcessor();
+        ClaimTestTriggerControl.isTest = true;
+
+        Account testAccount = new Account(
+            LastName = 'Test Account',
+            Military_Branch__c = 'Army',
+            Discharge_Status__c = 'Honorable Discharge', 
+            Service_Date_End__c = Date.today(), 
+            Service_Date_Start__c = Date.today(),
+            recordTypeId = (Id)Schema.SObjectType.Account.getRecordTypeInfosByName().get('Person Account').getRecordTypeId()
+        );
+        insert testAccount;
+        
+        Case testCase = new Case(
+            Subject = 'Test Case',
+            Description = 'Test Description',
+            Status = 'New',
+            Origin = 'Web',
+            Claim_Type__c = 'Housing Assistance',
+            AccountId = testAccount.Id,
+            recordTypeId = (Id)Schema.SObjectType.Case.getRecordTypeInfosByName().get('Housing Assistance').getRecordTypeId()
+        );
+        insert testCase;
+
+        Appeal__c testAppeal = new Appeal__c(
+            Claim__c = testCase.Id,
+            Appeal_Description__c = 'Test Appeal',
+            Request_for_Higher_Review__c = true
+        );
+        List<Appeal__c> testAppeals = new List<Appeal__c>{testAppeal};
+
+        Test.startTest();
+        processor.process(testAppeals, null);
+        Test.stopTest();
+
+        System.assertNotEquals(null, testAppeal.OwnerId);
+        System.assertEquals(processor.getBranchQueues().get('higher_review').Id, testAppeal.OwnerId);
+    }
+
+    @isTest
+    static void testOwnerIdChangedSuccessfully() {
+        AppealQueueProcessor processor = new AppealQueueProcessor();
+        ClaimTestTriggerControl.isTest = true;
+
+        Account testAccount = new Account(
+            LastName = 'Test Account',
+            Military_Branch__c = 'Army',
+            Discharge_Status__c = 'Honorable Discharge', 
+            Service_Date_End__c = Date.today(), 
+            Service_Date_Start__c = Date.today(),
+            recordTypeId = (Id)Schema.SObjectType.Account.getRecordTypeInfosByName().get('Person Account').getRecordTypeId()
+        );
+        insert testAccount;
+        
+        Case testCase = new Case(
+            Subject = 'Test Case',
+            Description = 'Test Description',
+            Status = 'New',
+            Origin = 'Web',
+            Claim_Type__c = 'Housing Assistance',
+            AccountId = testAccount.Id,
+            recordTypeId = (Id)Schema.SObjectType.Case.getRecordTypeInfosByName().get('Housing Assistance').getRecordTypeId()
         );
         insert testCase;
 
@@ -65,10 +158,11 @@ private class AppealRecordAssignmentTest {
         ClaimTestTriggerControl.isTest = true;
 
         Account testAccount = new Account(
-            Name = 'Test Account',
+            LastName = 'Test Account',
             Discharge_Status__c = 'Honorable Discharge', 
             Service_Date_End__c = Date.today(), 
-            Service_Date_Start__c = Date.today()
+            Service_Date_Start__c = Date.today(),
+            recordTypeId = (Id)Schema.SObjectType.Account.getRecordTypeInfosByName().get('Person Account').getRecordTypeId()
         );
         insert testAccount;
         
@@ -77,8 +171,9 @@ private class AppealRecordAssignmentTest {
             Description = 'Test Description',
             Status = 'New',
             Origin = 'Web',
-            Claim_Type__c = 'Pension',
-            AccountId = testAccount.Id
+            Claim_Type__c = 'Housing Assistance',
+            AccountId = testAccount.Id,
+            recordTypeId = (Id)Schema.SObjectType.Case.getRecordTypeInfosByName().get('Housing Assistance').getRecordTypeId()
         );
         insert testCase;
 

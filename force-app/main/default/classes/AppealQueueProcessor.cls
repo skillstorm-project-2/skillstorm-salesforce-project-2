@@ -2,6 +2,12 @@ public with sharing class AppealQueueProcessor extends AbstractQueueProcessor {
 
     public AppealQueueProcessor() {
         super('%_Appeals_Queue');
+
+        Group inPersonQueue = [SELECT Id, Name FROM Group WHERE Type = 'Queue' AND Name='In Person'];
+        Group higherReviewQueue = [SELECT Id, Name FROM Group WHERE Type = 'Queue' AND Name='Higher Review'];
+
+        branchQueues.put('in_person', inPersonQueue);
+        branchQueues.put('higher_review', higherReviewQueue);
     }
     
     public override void process(List<Object> objects, Map<Id, SObject> oldMap) {
@@ -25,14 +31,30 @@ public with sharing class AppealQueueProcessor extends AbstractQueueProcessor {
         for (Object obj : objects) {
             Appeal__c appeal = (Appeal__c) obj;
 
-            Group queue = branchQueues.get(claimMilitaryBranches.get(appeal.Claim__c));
+            if (appeal.Request_for_Higher_Review__c) {
+                Group queue = branchQueues.get('higher_review');
 
-            if (queue != null) {
-                // TODO: need to check if the claim is already assigned to a user
-                appeal.OwnerId = queue.Id;
+                assignToQueue(queue, appeal);
+            } else if (appeal.Request_for_In_Person_Hearing__c) {
+                Group queue = branchQueues.get('in_person');
+
+                assignToQueue(queue, appeal);
             } else {
-                throw new NullPointerException();
+                Group queue = branchQueues.get(claimMilitaryBranches.get(appeal.Claim__c));
+
+                assignToQueue(queue, appeal);
             }
+        }
+    }
+
+    private void assignToQueue(Group queue, Appeal__c appeal) {
+
+        System.debug('Queue: ' + queue);
+
+        if (queue != null) {
+            appeal.OwnerId = queue.Id;
+        } else {
+            throw new NullPointerException();
         }
     }
 }

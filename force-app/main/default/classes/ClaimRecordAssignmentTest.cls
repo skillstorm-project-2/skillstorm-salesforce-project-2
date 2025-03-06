@@ -40,11 +40,12 @@ private class ClaimRecordAssignmentTest {
         ClaimQueueProcessor processor = new ClaimQueueProcessor();
 
         Account testAccount = new Account(
-            Name = 'Test Account',
+            LastName = 'Test Account',
             Military_Branch__c = 'Army',
             Discharge_Status__c = 'Honorable Discharge', 
             Service_Date_End__c = Date.today(), 
-            Service_Date_Start__c = Date.today()
+            Service_Date_Start__c = Date.today(),
+            recordTypeId = (Id)Schema.SObjectType.Account.getRecordTypeInfosByName().get('Person Account').getRecordTypeId()
         );
         insert testAccount;
         
@@ -53,8 +54,9 @@ private class ClaimRecordAssignmentTest {
             Description = 'Test Description',
             Status = 'New',
             Origin = 'Web',
-            Claim_Type__c = 'Pension',
-            AccountId = testAccount.Id
+            Claim_Type__c = 'Housing Assistance',
+            AccountId = testAccount.Id,
+            recordTypeId = (Id)Schema.SObjectType.Case.getRecordTypeInfosByName().get('Housing Assistance').getRecordTypeId()
         );
 
         List<Case> testCases = new List<Case>{testCase};
@@ -72,10 +74,11 @@ private class ClaimRecordAssignmentTest {
         ClaimQueueProcessor processor = new ClaimQueueProcessor();
 
         Account testAccount = new Account(
-            Name = 'Test Account',
+            LastName = 'Test Account',
             Discharge_Status__c = 'Honorable Discharge', 
             Service_Date_End__c = Date.today(), 
-            Service_Date_Start__c = Date.today()
+            Service_Date_Start__c = Date.today(),
+            recordTypeId = (Id)Schema.SObjectType.Account.getRecordTypeInfosByName().get('Person Account').getRecordTypeId()
         );
         insert testAccount;
         
@@ -84,8 +87,9 @@ private class ClaimRecordAssignmentTest {
             Description = 'Test Description',
             Status = 'New',
             Origin = 'Web',
-            Claim_Type__c = 'Pension',
-            Account = testAccount
+            Claim_Type__c = 'Housing Assistance',
+            AccountId = testAccount.Id,
+            recordTypeId = (Id)Schema.SObjectType.Case.getRecordTypeInfosByName().get('Housing Assistance').getRecordTypeId()
         );
 
         List<Case> testCases = new List<Case>{testCase};

@@ -1,23 +1,23 @@
 <template>
-    <footer class="lwc-footer" style="background-color: #00001e; color: white; padding: 20px;">
-        <div style="display: flex; justify-content: space-around;">
-            <div>
-                <h3>Quick Links</h3>
-                <ul style="list-style-type: none; padding: 0;">
-                    <li><a href="/s/" style="color: white;">Home</a></li>
-                    <li><a href="/s/claims" style="color: white;">Claims &amp; Appeals</a></li>
-                    <li><a href="/s/faqs" style="color: white;">FAQ</a></li>
-                </ul>
-            </div>
-            <div class="padding-left: 20px; padding-right:20px;">
-                <img src={footerImageUrl} alt="Logo" style="height: 60px;">
-                <p>Not an official website of the U.S. Government</p>
-            </div>
-            <div>
-                <h3>Contact</h3>
-                <p>(800) 698-2411</p>
-                <p>TTY: 711</p>
-            </div>
-        </div>
-    </footer>
+  <footer class="lwc-footer">
+    <div class="link-container">
+      <div>
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="/s/">Home</a></li>
+          <li><a href="/s/claims">Claims &amp; Appeals</a></li>
+          <li><a href="/s/faqs">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="lwc-img-container">
+        <img src={footerImageUrl} alt="Logo" style="height: 60px" />
+        <p>Not an official website of the U.S. Government</p>
+      </div>
+      <div>
+        <h3>Contact</h3>
+        <p>(800) 698-2411</p>
+        <p>TTY: 711</p>
+      </div>
+    </div>
+  </footer>
 </template>

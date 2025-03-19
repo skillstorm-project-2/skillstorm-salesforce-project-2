@@ -13,7 +13,7 @@ export default class AccountForm extends LightningElement {
     Service_Date_End__c: new Date(),
     parsedEndDate: "",
     Phone: "",
-    SSN__c: ""
+    SSN__pc: ""
   };
 
   get branchOptions() {
@@ -43,6 +43,7 @@ export default class AccountForm extends LightningElement {
   handleInputChange(event) {
     const field = event.target.name;
     const value = event.target.value;
+    console.log(`${field} ${value}`);
     this.accountRecord = { ...this.accountRecord, [field]: value };
   }
 
@@ -82,6 +83,7 @@ export default class AccountForm extends LightningElement {
     );
 
     this.isLoading = true;
+    console.log("SSN: " + this.accountRecord.SSN__pc);
 
     // Call the Apex method to create the account
     createPersonAccount({
